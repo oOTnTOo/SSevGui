@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConnectionInfoWgt</class>
+ <widget class="QDialog" name="ConnectionInfoWgt">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>321</width>
+    <height>382</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="remarkLabel">
+     <property name="text">
+      <string>Profile Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="editName"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="serverAddressLabel">
+     <property name="text">
+      <string>Server Address</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="editRemoteAddr"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="serverPortLabel">
+     <property name="text">
+      <string>Server Port</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="editRemotePort"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="passwordLabel">
+     <property name="text">
+      <string>Password</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="editPwd"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="localAddressLabel">
+     <property name="text">
+      <string>Local Address</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="editLocalAddr">
+     <property name="text">
+      <string>0.0.0.0</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="localPortLabel">
+     <property name="text">
+      <string>Local Port</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QLineEdit" name="editLocalPort"/>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="labelLST">
+     <property name="text">
+      <string>Local Server Type</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QWidget" name="editLocalSerType" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QRadioButton" name="radioSocks">
+        <property name="text">
+         <string>SOCKS5</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioHttp">
+        <property name="text">
+         <string>HTTP(S)</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="encryptionMethodLabel">
+     <property name="text">
+      <string>Encryption Method</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1">
+    <widget class="QComboBox" name="comboEncryMethod">
+     <item>
+      <property name="text">
+       <string>rc4-md5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>bf-cfb</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>chacha20-ietf-poly1305</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>xchacha20-ietf-poly1305</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>salsa20</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>chacha20</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>chacha20-ietf</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="11" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="pluginLabel">
+     <property name="text">
+      <string>Plugin</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
+    <widget class="QLineEdit" name="editPlugin"/>
+   </item>
+   <item row="9" column="1">
+    <widget class="QLineEdit" name="editPlugOpt"/>
+   </item>
+   <item row="10" column="1">
+    <widget class="QLineEdit" name="editPlugArg"/>
+   </item>
+   <item row="9" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Plugin options</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Plugin arguments</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

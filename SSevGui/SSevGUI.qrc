@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>Resource/shadowsocks-qt5.icns</file>
+        <file>Resource/shadowsocks-qt5.png</file>
+        <file>Resource/ss-qt5.ico</file>
+    </qresource>
+</RCC>
