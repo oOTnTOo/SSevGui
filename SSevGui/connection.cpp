@@ -68,9 +68,9 @@ void Connection::onLatencyAvailable(const int latency)
 }
 
 void Connection::start() {
-
+	running = true;
 }
 
 void Connection::stop() {
-
+	running = false;
 }

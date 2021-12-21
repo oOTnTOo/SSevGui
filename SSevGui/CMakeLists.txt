@@ -11,6 +11,17 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+file(GLOB_RECURSE CODE_FILES *.cpp)
+
+SET(TS_FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/zh_CN.ts
+)
+
+find_package(Qt5LinguistTools)
+qt5_create_translation(QM_FILES ${CMAKE_CURRENT_SOURCE_DIR} ${TS_FILES} OPTIONS -source-language en_US -no-obsolete)
+message(${QM_FILES})
+
+
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5 COMPONENTS Network REQUIRED)
 find_package(Qt5 COMPONENTS DBus REQUIRED)
@@ -28,6 +39,7 @@ add_executable(SSevGui
   BusView.cpp
   DataDefine.cpp
   SSevGUI.qrc
+  ${QM_FILES}
 )
 
 target_link_libraries(SSevGui PRIVATE Qt5::Widgets)

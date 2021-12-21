@@ -14,10 +14,12 @@ public:
 	explicit Settings(QObject *parent = nullptr);
 
 	void readProfile(ConnectionTableModel* model);
-	void saveProfile(const ConnectionTableModel& model);
+	void saveAllProfile(const ConnectionTableModel& model);
+	void saveProfile(int index, SQProfile profile);
 
-	void readAirInfos(QListWidget* listWgt);
+	void readAirInfosIntoList(QListWidget* listWgt);
 	void saveAirInfos(const QListWidget* listWgt);
+	QList<AirportInfo> readAirInfos();
 
 private:
 	QSettings settings_;

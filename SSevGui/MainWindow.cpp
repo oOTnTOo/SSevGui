@@ -26,14 +26,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 	BusView::inst()->init(model_);
 
-	connect(ui->tableServers,&QTableView::customContextMenuRequested,
-			[this](const QPoint &pos){
-		//this->checkCurrentIndex(ui->tableServers->indexAt(pos));
-		ui->menuConnection->popup(ui->tableServers->viewport()->mapToGlobal(pos));
-	});
-
 	connect(BusView::inst(),&BusView::sig_respParsed,this,&MainWindow::onSubsParsed);
 	connect(BusView::inst(),&BusView::sig_notifyText,sntfier_,&StatusNotifier::showNotification);
+
+	ui->statusbar->showMessage(tr("Caution: Linux need modify socks5 proxy setting manully."));
 }
 
 MainWindow::~MainWindow() {
@@ -75,6 +71,11 @@ void MainWindow::initSingleInstance()
 	}
 }
 
+void MainWindow::updateTabelServersMenu(const QModelIndex &index) {
+	ui->actionConnect->setText(model_->getItem(index.row())->connection()->isRunning()
+		? tr("Disconnect") : tr("Connect"));
+}
+
 void MainWindow::hideEvent(QHideEvent* event) {
 	QMainWindow::hideEvent(event);
 	sntfier_->onWindowVisibleChanged(false);
@@ -103,19 +104,33 @@ void MainWindow::on_actionManually_triggered() {
 	if(QDialog::Accepted == ciw->exec()) {
 		Connection* conn = new Connection(ciw->profile(), model_);
 		model_->appendConnection(conn);
-		BusView::inst()->setting().saveProfile(*model_);
+		BusView::inst()->setting().saveAllProfile(*model_);
 	}
 	delete ciw;
 }
 
 void MainWindow::on_actionConnect_triggered() {
-	BusView::inst()->startProxy(model_->getItem(ui->tableServers->currentIndex().row())->connection()->profile());
+	QModelIndex idx = ui->tableServers->currentIndex();
+	if(!idx.isValid()) {
+		return;
+	}
+	ui->actionConnect->setEnabled(true);
+	Connection* conn = model_->getItem(proxyModel_->mapToSource(idx).row())->connection();
+	if(conn->isRunning()) {
+		if(BusView::inst()->stopProxy()) {
+			model_->getItem(proxyModel_->mapToSource(idx).row())->connection()->stop();
+		}
+	} else {
+		if(BusView::inst()->startProxy(conn->profile())) {
+			model_->getItem(proxyModel_->mapToSource(idx).row())->connection()->start();
+		}
+	}
 }
 
 void MainWindow::on_actionClear_triggered() {
 	if(QMessageBox::Yes == QMessageBox::question(this,"Are you sure?","Clear list? sure?")) {
 		model_->clearItems();
-		BusView::inst()->setting().saveProfile(*model_);
+		BusView::inst()->setting().saveAllProfile(*model_);
 	}
 }
 
@@ -128,6 +143,22 @@ void MainWindow::on_actionManager_triggered() {
 
 void MainWindow::on_actionUpdate_triggered() {
 	BusView::inst()->updateAllAirport();
+}
+
+void MainWindow::on_menuConnection_aboutToShow() {
+	QModelIndex idx = ui->tableServers->currentIndex();
+	if(!idx.isValid())
+		return;
+	idx = proxyModel_->mapToSource(idx);
+	updateTabelServersMenu(idx);
+}
+
+void MainWindow::on_tableServers_customContextMenuRequested(const QPoint& pos) {
+	QModelIndex idx = proxyModel_->mapToSource(ui->tableServers->indexAt(pos));
+	if(!idx.isValid())
+		return;
+
+	ui->menuConnection->popup(ui->tableServers->viewport()->mapToGlobal(pos));
 }
 
 void MainWindow::onSingleInstanceConnect() {
@@ -168,9 +199,17 @@ void MainWindow::on_tableServers_doubleClicked(const QModelIndex &index) {
 	ciw->setProfile(conn->profile());
 	if(QDialog::Accepted == ciw->exec()) {
 		conn->setProfile(ciw->profile());
-		BusView::inst()->setting().saveProfile(*model_);
+		BusView::inst()->setting().saveAllProfile(*model_);
 	}
 	delete ciw;
+}
+
+void MainWindow::on_tableServers_clicked(const QModelIndex& index) {
+	if(!index.isValid())
+		return;
+
+	//updateTabelServersMenu(proxyModel_->mapToSource(index));
+	//(model_->getItem(index.row())->connection()->isRunning())
 }
 
 void MainWindow::on_editFilter_editingFinished() {
@@ -179,11 +218,11 @@ void MainWindow::on_editFilter_editingFinished() {
 
 void MainWindow::onSubsParsed(QList<SQProfile> profiles, AirportInfo airInfo) {
 	model_->addAirConnection(profiles,airInfo);
-	BusView::inst()->setting().saveProfile(*model_);
+	BusView::inst()->setting().saveAllProfile(*model_);
 	sntfier_->showNotification(QString(tr("%1 updated")).arg(airInfo.name_));
 }
 
 void MainWindow::onDeleteAirport(QString airUrl) {
 	model_->removeAirsConnection(airUrl);
-	BusView::inst()->setting().saveProfile(*model_);
+	BusView::inst()->setting().saveAllProfile(*model_);
 }

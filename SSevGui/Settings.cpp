@@ -19,7 +19,7 @@ void Settings::readProfile(ConnectionTableModel* model) {
 	settings_.endArray();
 }
 
-void Settings::saveProfile(const ConnectionTableModel& model) {
+void Settings::saveAllProfile(const ConnectionTableModel& model) {
 	if(model.rowCount() < 1)
 		settings_.remove("Profile");
 	settings_.beginWriteArray("Profile");
@@ -32,7 +32,15 @@ void Settings::saveProfile(const ConnectionTableModel& model) {
 	settings_.endArray();
 }
 
-void Settings::readAirInfos(QListWidget* listWgt) {
+void Settings::saveProfile(int index, SQProfile profile) {
+	settings_.beginWriteArray("Profile");
+	settings_.setArrayIndex(index);
+	QVariant value = QVariant::fromValue<SQProfile>(profile);
+	settings_.setValue("SQProfile", value);
+	settings_.endArray();
+}
+
+void Settings::readAirInfosIntoList(QListWidget* listWgt) {
 	int count = settings_.beginReadArray("Airport");
 	for (int i = 0; i < count; ++i) {
 		settings_.setArrayIndex(i);
@@ -63,4 +71,22 @@ void Settings::saveAirInfos(const QListWidget* listWgt) {
 		settings_.setValue("expiry",airInfos.expiry_);
 	}
 	settings_.endArray();
+}
+
+QList<AirportInfo> Settings::readAirInfos() {
+	int count = settings_.beginReadArray("Airport");
+	QList<AirportInfo> ais;
+	for (int i = 0; i < count; ++i) {
+		settings_.setArrayIndex(i);
+		AirportInfo ai;
+		ai.url_ = settings_.value("url").toString();
+		ai.name_ = settings_.value("name").toString();
+		ai.expiry_ = settings_.value("expiry").toString();
+		ai.trafficTotal_ = settings_.value("trafficTotal").toDouble();
+		ai.trafficUsed_ = settings_.value("trafficUsed").toDouble();
+		ais << ai;
+	}
+	settings_.endArray();
+
+	return ais;
 }

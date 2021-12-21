@@ -23,7 +23,8 @@ public:
 
 	void init(ConnectionTableModel* model);
 
-	void startProxy(SQProfile profile);
+	bool startProxy(SQProfile profile);
+	bool stopProxy();
 	void updateAirport(QString url);
 	void updateAllAirport();
 

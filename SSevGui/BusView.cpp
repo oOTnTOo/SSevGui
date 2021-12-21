@@ -25,10 +25,9 @@ void BusView::init(ConnectionTableModel* model) {
 	settings_.readProfile(model_);
 }
 
-void BusView::startProxy(SQProfile prof) {
+bool BusView::startProxy(SQProfile prof) {
 	//SQProfile prof = model_->getItem(ui->tableServers->currentIndex().row())->connection()->profile();
 
-	//QString str = QString("-s %1 -p %2 -l %3 -k %4 -m %5 --plugin obfs-local --plugin-opts \"\"")
 	QStringList sl = {
 		"-s",prof.serverAddress,
 		"-p",QString::number(prof.serverPort),
@@ -40,8 +39,6 @@ void BusView::startProxy(SQProfile prof) {
 	if(!prof.plugin.isEmpty()) {
 		sl << "--plugin" << prof.plugin
 		   << "--plugin-opts" << QString("\"%1\"").arg(prof.pluginOpt);
-//		if(!prof.pluginArg.isEmpty())
-//			sl << QString("")
 	}
 
 	if(proc_.state() != QProcess::NotRunning){
@@ -49,11 +46,22 @@ void BusView::startProxy(SQProfile prof) {
 		qDebug() << proc_.waitForFinished(3000);
 	}
 	if(!QFile::exists(qApp->applicationDirPath()+"/ss-local")) {
-		qDebug() << "ss-local not found";
-		return;
+		emit sig_notifyText("ss-local not found, copy ss-local in program dir");
+		return false;
 	}
 	proc_.start(qApp->applicationDirPath()+"/ss-local "+sl.join(" "));
 	qDebug() << proc_.waitForStarted(3000) << proc_.arguments();
+
+	return true;
+}
+
+bool BusView::stopProxy() {
+	proc_.terminate();
+	if(proc_.waitForFinished(10000)) {
+		proc_.kill();
+	}
+
+	return true;
 }
 
 void BusView::updateAirport(QString url) {
@@ -62,8 +70,8 @@ void BusView::updateAirport(QString url) {
 }
 
 void BusView::updateAllAirport() {
-	for(QString& au : model_->airportUrls()) {
-		updateAirport(au);
+	for(AirportInfo& ai : settings_.readAirInfos()) {
+		updateAirport(ai.url_);
 	}
 }
 
@@ -74,12 +82,15 @@ Settings& BusView::setting() {
 BusView::BusView(QObject *parent) : QObject(parent) {
 	netMng_ = new QNetworkAccessManager(this);
 
-	//connect(&proc_,&QProcess::readyReadStandardOutput, [this](){qDebug() << QString::fromUtf8(proc_.readAllStandardOutput());});
+	connect(&proc_,&QProcess::readyReadStandardOutput, [this](){qDebug() << QString::fromUtf8(proc_.readAllStandardOutput());});
 	connect(netMng_,&QNetworkAccessManager::finished,this,&BusView::onSubsResponse);
 }
 
 BusView::~BusView() {
-
+	proc_.terminate();
+	if(proc_.waitForFinished(20000)) {
+		proc_.kill();
+	}
 }
 
 bool BusView::getSSDParseRes(QByteArray bytes, QList<SQProfile>& prfs, AirportInfo& ai) {
@@ -89,7 +100,14 @@ bool BusView::getSSDParseRes(QByteArray bytes, QList<SQProfile>& prfs, AirportIn
 		bytes.append(4-mod4,'=');
 	}
 
-	QJsonObject rootObj = QJsonDocument::fromJson(QByteArray::fromBase64(bytes)).object();
+	QJsonParseError err;
+	QJsonObject rootObj = QJsonDocument::fromJson(QByteArray::fromBase64(bytes),&err).object();
+	if(err.error != QJsonParseError::NoError) {
+		emit sig_notifyText(tr("%1 Error:\n %2")
+							.arg(ai.url_)
+							.arg(err.errorString()));
+		return false;
+	}
 	QString airUrl = rootObj.value("url").toString();
 	ai.url_ = airUrl;
 	ai.name_ = rootObj.value("airport").toString();
@@ -105,7 +123,7 @@ bool BusView::getSSDParseRes(QByteArray bytes, QList<SQProfile>& prfs, AirportIn
 		pro.method = o.value("encryption").toString();
 		pro.name = o.value("remarks").toString();
 		pro.password = o.value("password").toString();
-		pro.plugin = o.value("plugin").toString();
+		pro.plugin = o.value("plugin").toString().replace("simple-obfs","obfs-local");
 		pro.pluginOpt = o.value("plugin_options").toString();
 
 		pro.localAddress = "0.0.0.0";
@@ -120,18 +138,28 @@ bool BusView::getSSDParseRes(QByteArray bytes, QList<SQProfile>& prfs, AirportIn
 }
 
 void BusView::onSubsResponse(QNetworkReply* reply) {
+	AirportInfo ai;
+	ai.url_ = reply->request().url().toString();
+
 	if(reply->error()!=QNetworkReply::NoError) {
-		emit sig_notifyText(reply->errorString());
+		emit sig_notifyText(tr("%1 error: %2")
+							.arg(ai.url_)
+							.arg(reply->errorString()));
 		return;
 	}
+
 	QString resp = QString::fromUtf8(reply->readAll());
 	QStringList bl = resp.split("://");
+	if(bl.count() < 2)
+		emit sig_notifyText(tr("%1 error: return \n%2").arg(ai.url_).arg(resp));
 
 	QList<SQProfile> prfs;
-	AirportInfo ai;
 
 	if(bl.first() == "ssd") {
 		getSSDParseRes(bl.last().toUtf8(), prfs, ai);
+	} else {
+		emit sig_notifyText(tr("Unsupport protocal"));
+		return;
 	}
 
 	emit sig_respParsed(prfs, ai);

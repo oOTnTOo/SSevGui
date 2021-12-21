@@ -38,6 +38,7 @@ private:
 	bool instanceRunning;
 
 	void initSingleInstance();
+	void updateTabelServersMenu(const QModelIndex &modelIndex);
 
 	void hideEvent(QHideEvent *event) override;
 	void showEvent(QShowEvent *event) override;
@@ -50,7 +51,11 @@ private slots:
 	void on_actionManager_triggered();
 	void on_actionUpdate_triggered();
 
+	void on_menuConnection_aboutToShow();
+
+	void on_tableServers_customContextMenuRequested(const QPoint &pos);
 	void on_tableServers_doubleClicked(const QModelIndex &index);
+	void on_tableServers_clicked(const QModelIndex &index);
 
 	void on_editFilter_editingFinished();
 

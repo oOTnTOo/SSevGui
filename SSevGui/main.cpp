@@ -2,6 +2,7 @@
 
 #include <signal.h>
 #include <QApplication>
+#include <QTranslator>
 
 static void onSignalRecv(int sig) {
 	if (sig == SIGINT || sig == SIGTERM) {
@@ -34,9 +35,9 @@ void setupApplication(QApplication &a)
 	QIcon::setThemeName("Breeze");
 #endif
 
-//	QTranslator *ssqt5t = new QTranslator(&a);
-//	ssqt5t->load(QLocale::system(), "ss-qt5", "_", ":/i18n");
-//	a.installTranslator(ssqt5t);
+	QTranslator *zhcn = new QTranslator(&a);
+	zhcn->load(qApp->applicationDirPath()+"/zh_CN.qm");
+	a.installTranslator(zhcn);
 }
 
 int main(int argc, char *argv[]) {

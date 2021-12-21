@@ -2,9 +2,8 @@
 
 ConnectionTableModel::ConnectionTableModel(QObject *parent) :
 	QAbstractTableModel(parent) {
-	header_ << tr("Name") << tr("Server") << tr("Status") << tr("Latency")
-			<< tr("Local Port") << tr("Term Usage") << tr("Total Usage")
-			<< tr("Reset Date") << tr("Last Used") << tr("Airport");
+	header_ << tr("Name") << tr("Server") << tr("Airport") << tr("Status") << tr("Latency")
+			<< tr("Local Port");
 }
 
 ConnectionTableModel::~ConnectionTableModel()
@@ -75,7 +74,7 @@ void ConnectionTableModel::removeAirsConnection(QString airportUrl) {
 		}
 	}
 
-	mapAirInfo_.remove(airportUrl);
+	mapAirItems_.remove(airportUrl);
 }
 
 bool ConnectionTableModel::move(int row, int target, const QModelIndex &parent)
@@ -133,10 +132,6 @@ void ConnectionTableModel::disconnectConnectionsAt(const QString &addr, quint16 
 	}
 }
 
-QStringList ConnectionTableModel::airportUrls() {
-	return mapAirItems_.keys();
-}
-
 void ConnectionTableModel::testAllLatency()
 {
     for (auto &i : items) {
@@ -152,7 +147,6 @@ void ConnectionTableModel::addAirConnection(QList<SQProfile> profiles, AirportIn
 	for(SQProfile& p : profiles)
 		appendConnection(new Connection(p,this));
 
-	mapAirInfo_[airInfo.url_] = airInfo;
 }
 
 void ConnectionTableModel::onConnectionStateChanged(bool running)
@@ -175,5 +169,5 @@ void ConnectionTableModel::onConnectionDataUsageChanged()
 {
     ConnectionItem *item = qobject_cast<ConnectionItem*>(sender());
     int row = items.indexOf(item);
-    emit dataChanged(this->index(row, 5), this->index(row, 6));
+	emit dataChanged(this->index(row, 5), this->index(row, 6));
 }

@@ -46,7 +46,6 @@ public:
 
     void disconnectConnectionsAt(const QString &addr, quint16 port);
 
-	QStringList airportUrls();
 	QStringList header_;
 
 public slots:
@@ -59,8 +58,9 @@ signals:
 
 private:
     QList<ConnectionItem*> items;
+
+	// 该Map只有索引功能并不维持Url为最新，最新Url在配置文件中
 	QMap<QString, QList<ConnectionItem*>> mapAirItems_;
-	QMap<QString, AirportInfo> mapAirInfo_;
     static QString convertLatencyToString(const int latency);
 
 private slots:

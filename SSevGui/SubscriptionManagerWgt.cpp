@@ -13,7 +13,7 @@ SubscriptionManagerWgt::SubscriptionManagerWgt(QWidget *parent) :
 	ui->splitter->setStretchFactor(0,2);
 	ui->splitter->setStretchFactor(1,3);
 
-	BusView::inst()->setting().readAirInfos(ui->listAir);
+	BusView::inst()->setting().readAirInfosIntoList(ui->listAir);
 
 	connect(BusView::inst(),&BusView::sig_respParsed,this,&SubscriptionManagerWgt::onAirResponse);
 }
@@ -35,6 +35,15 @@ void SubscriptionManagerWgt::on_btnDel_clicked() {
 		emit sig_DeleteAirportConnection(it->data(Qt::UserRole+1).value<AirportInfo>().url_);
 	}
 	delete it;
+
+	BusView::inst()->setting().saveAirInfos(ui->listAir);
+}
+
+void SubscriptionManagerWgt::on_btnSave_clicked() {
+	AirportInfo ai = ui->listAir->currentItem()->data(Qt::UserRole+1).value<AirportInfo>();
+	AirportInfo before = ai;
+	ai.url_ = ui->editAirLink->text();
+	ui->listAir->currentItem()->setData(Qt::UserRole+1,QVariant::fromValue<AirportInfo>(ai));
 
 	BusView::inst()->setting().saveAirInfos(ui->listAir);
 }
