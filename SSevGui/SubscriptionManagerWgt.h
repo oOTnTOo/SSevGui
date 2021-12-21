@@ -27,6 +27,9 @@ private slots:
 	void on_btnDel_clicked();
 	void onAirResponse(QList<SQProfile> profile, AirportInfo airportInfo);
 	void on_listAir_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+signals:
+	void sig_DeleteAirportConnection(QString Url);
 };
 
 #endif // SUBSCRIPTIONMANAGERWGT_H

@@ -28,8 +28,8 @@ class Connection : public QObject
     Q_OBJECT
 public:
     Connection(QObject *parent = 0);
-	Connection(const SQProfile &_profile, QObject *parent = 0, QString airportUrl = "");
-	Connection(QString uri, QObject *parent = 0, QString airportUrl = "");
+	Connection(const SQProfile &_profile, QObject *parent = 0);
+	Connection(QString uri, QObject *parent = 0);
     ~Connection();
 
 	Connection(const Connection&) = delete;
@@ -42,8 +42,6 @@ public:
     bool isValid() const;
     const bool &isRunning() const;
     void latencyTest();
-
-	QString airportUrl() const;
 
 signals:
 	void stateChanged(bool started);
@@ -58,7 +56,6 @@ public slots:
 
 private:
 	SQProfile profile_;
-	QString airportUrl_;
     bool running;
 
 private slots:

@@ -7,18 +7,16 @@ Connection::Connection(QObject *parent) :
     running(false)
 {}
 
-Connection::Connection(const SQProfile &_profile, QObject *parent, QString airportUrl) :
+Connection::Connection(const SQProfile &_profile, QObject *parent) :
 	Connection(parent)
 {
 	profile_ = _profile;
-	airportUrl_ = airportUrl;
 }
 
-Connection::Connection(QString uri, QObject *parent, QString airportUrl) :
+Connection::Connection(QString uri, QObject *parent) :
 	Connection(parent)
 {
 	profile_ = SQProfile(uri);
-	airportUrl_ = airportUrl;
 }
 
 Connection::~Connection()
@@ -75,8 +73,4 @@ void Connection::start() {
 
 void Connection::stop() {
 
-}
-
-QString Connection::airportUrl() const {
-	return airportUrl_;
 }

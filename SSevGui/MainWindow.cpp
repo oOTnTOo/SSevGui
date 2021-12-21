@@ -24,13 +24,16 @@ MainWindow::MainWindow(QWidget *parent)
 	proxyModel_->setFilterKeyColumn(-1);
 	ui->tableServers->setModel(proxyModel_);
 
-	BusView::inst()->setting().readProfile(model_);
+	BusView::inst()->init(model_);
 
 	connect(ui->tableServers,&QTableView::customContextMenuRequested,
 			[this](const QPoint &pos){
 		//this->checkCurrentIndex(ui->tableServers->indexAt(pos));
 		ui->menuConnection->popup(ui->tableServers->viewport()->mapToGlobal(pos));
 	});
+
+	connect(BusView::inst(),&BusView::sig_respParsed,this,&MainWindow::onSubsParsed);
+	connect(BusView::inst(),&BusView::sig_notifyText,sntfier_,&StatusNotifier::showNotification);
 }
 
 MainWindow::~MainWindow() {
@@ -118,8 +121,13 @@ void MainWindow::on_actionClear_triggered() {
 
 void MainWindow::on_actionManager_triggered() {
 	SubscriptionManagerWgt* smw = new SubscriptionManagerWgt(this);
+	connect(smw,&SubscriptionManagerWgt::sig_DeleteAirportConnection,this,&MainWindow::onDeleteAirport);
 	smw->setAttribute(Qt::WA_DeleteOnClose);
 	smw->show();
+}
+
+void MainWindow::on_actionUpdate_triggered() {
+	BusView::inst()->updateAllAirport();
 }
 
 void MainWindow::onSingleInstanceConnect() {
@@ -150,6 +158,10 @@ bool MainWindow::isInstanceRunning() {
 	return instanceRunning;
 }
 
+QMenu* MainWindow::subscriptionMenu() {
+	return ui->menuSubscription;
+}
+
 void MainWindow::on_tableServers_doubleClicked(const QModelIndex &index) {
 	Connection* conn = model_->getItem(proxyModel_->mapToSource(index).row())->connection();
 	ConnectionInfoWgt* ciw = new ConnectionInfoWgt(this);
@@ -159,4 +171,19 @@ void MainWindow::on_tableServers_doubleClicked(const QModelIndex &index) {
 		BusView::inst()->setting().saveProfile(*model_);
 	}
 	delete ciw;
+}
+
+void MainWindow::on_editFilter_editingFinished() {
+	proxyModel_->setFilterWildcard(ui->editFilter->text());
+}
+
+void MainWindow::onSubsParsed(QList<SQProfile> profiles, AirportInfo airInfo) {
+	model_->addAirConnection(profiles,airInfo);
+	BusView::inst()->setting().saveProfile(*model_);
+	sntfier_->showNotification(QString(tr("%1 updated")).arg(airInfo.name_));
+}
+
+void MainWindow::onDeleteAirport(QString airUrl) {
+	model_->removeAirsConnection(airUrl);
+	BusView::inst()->setting().saveProfile(*model_);
 }

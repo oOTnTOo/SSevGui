@@ -16,7 +16,11 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLineEdit" name="editFilter"/>
+     <widget class="QLineEdit" name="editFilter">
+      <property name="placeholderText">
+       <string>input to filter</string>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QTableView" name="tableServers">

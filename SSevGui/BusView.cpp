@@ -19,6 +19,12 @@ BusView* BusView::inst() {
 	return &bv;
 }
 
+void BusView::init(ConnectionTableModel* model) {
+	model_ = model;
+
+	settings_.readProfile(model_);
+}
+
 void BusView::startProxy(SQProfile prof) {
 	//SQProfile prof = model_->getItem(ui->tableServers->currentIndex().row())->connection()->profile();
 
@@ -50,9 +56,15 @@ void BusView::startProxy(SQProfile prof) {
 	qDebug() << proc_.waitForStarted(3000) << proc_.arguments();
 }
 
-void BusView::getSubsContent(QString url) {
+void BusView::updateAirport(QString url) {
 	QNetworkRequest req(url);
 	netMng_->get(req);
+}
+
+void BusView::updateAllAirport() {
+	for(QString& au : model_->airportUrls()) {
+		updateAirport(au);
+	}
 }
 
 Settings& BusView::setting() {
@@ -62,8 +74,7 @@ Settings& BusView::setting() {
 BusView::BusView(QObject *parent) : QObject(parent) {
 	netMng_ = new QNetworkAccessManager(this);
 
-	connect(&proc_,&QProcess::readyReadStandardOutput,
-			[this](){qDebug() << QString::fromUtf8(proc_.readAllStandardOutput());});
+	//connect(&proc_,&QProcess::readyReadStandardOutput, [this](){qDebug() << QString::fromUtf8(proc_.readAllStandardOutput());});
 	connect(netMng_,&QNetworkAccessManager::finished,this,&BusView::onSubsResponse);
 }
 
@@ -71,24 +82,21 @@ BusView::~BusView() {
 
 }
 
-void BusView::onSubsResponse(QNetworkReply* reply) {
-	QByteArray resp = reply->readAll();
-	resp.remove(0,6).replace('-', '+').replace('_', '/');
-	int mod4 = resp.count() % 4;
+bool BusView::getSSDParseRes(QByteArray bytes, QList<SQProfile>& prfs, AirportInfo& ai) {
+	bytes.replace('-', '+').replace('_', '/');
+	int mod4 = bytes.count() % 4;
 	if(mod4 > 0){
-		resp.append(4-mod4,'=');
+		bytes.append(4-mod4,'=');
 	}
 
-	QJsonObject rootObj = QJsonDocument::fromJson(QByteArray::fromBase64(resp)).object();
+	QJsonObject rootObj = QJsonDocument::fromJson(QByteArray::fromBase64(bytes)).object();
 	QString airUrl = rootObj.value("url").toString();
-	AirportInfo ai;
 	ai.url_ = airUrl;
 	ai.name_ = rootObj.value("airport").toString();
 	ai.expiry_ = rootObj.value("expiry").toString();
 	ai.trafficTotal_ = rootObj.value("traffic_total").toDouble();
 	ai.trafficUsed_ = rootObj.value("traffic_used").toDouble();
 
-	QList<SQProfile> prfs;
 	for(QJsonValueRef v : rootObj.value("servers").toArray()) {
 		QJsonObject o = v.toObject();
 		SQProfile pro;
@@ -103,7 +111,27 @@ void BusView::onSubsResponse(QNetworkReply* reply) {
 		pro.localAddress = "0.0.0.0";
 		pro.localPort = 1088;
 
+		pro.airportInfo_ = ai;
+
 		prfs << pro;
+	}
+
+	return true;
+}
+
+void BusView::onSubsResponse(QNetworkReply* reply) {
+	if(reply->error()!=QNetworkReply::NoError) {
+		emit sig_notifyText(reply->errorString());
+		return;
+	}
+	QString resp = QString::fromUtf8(reply->readAll());
+	QStringList bl = resp.split("://");
+
+	QList<SQProfile> prfs;
+	AirportInfo ai;
+
+	if(bl.first() == "ssd") {
+		getSSDParseRes(bl.last().toUtf8(), prfs, ai);
 	}
 
 	emit sig_respParsed(prfs, ai);

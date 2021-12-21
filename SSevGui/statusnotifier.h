@@ -29,7 +29,7 @@ class StatusNotifier : public QObject
 {
     Q_OBJECT
 public:
-    StatusNotifier(MainWindow *w, bool startHiden, QObject *parent = 0);
+	StatusNotifier(MainWindow *w, bool startHiden, QObject *parent = 0);
 
 public slots:
     void activate();

@@ -1,9 +1,10 @@
 #include "connectiontablemodel.h"
-#include "BusView.h"
 
 ConnectionTableModel::ConnectionTableModel(QObject *parent) :
 	QAbstractTableModel(parent) {
-	connect(BusView::inst(),&BusView::sig_respParsed,this,&ConnectionTableModel::onSubsParsed);
+	header_ << tr("Name") << tr("Server") << tr("Status") << tr("Latency")
+			<< tr("Local Port") << tr("Term Usage") << tr("Total Usage")
+			<< tr("Reset Date") << tr("Last Used") << tr("Airport");
 }
 
 ConnectionTableModel::~ConnectionTableModel()
@@ -21,7 +22,7 @@ int ConnectionTableModel::rowCount(const QModelIndex &) const
 
 int ConnectionTableModel::columnCount(const QModelIndex &) const
 {
-    return ConnectionItem::columnCount();
+	return header_.count();
 }
 
 QVariant ConnectionTableModel::data(const QModelIndex &index, int role) const
@@ -31,7 +32,7 @@ QVariant ConnectionTableModel::data(const QModelIndex &index, int role) const
     }
 
     ConnectionItem *item = getItem(index.row());
-    return item->data(index.column(), role);
+	return item->data(index.column(), role);
 }
 
 QVariant ConnectionTableModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -40,28 +41,7 @@ QVariant ConnectionTableModel::headerData(int section, Qt::Orientation orientati
         return QVariant();
     }
 
-    switch (section) {
-    case 0:
-        return QVariant(tr("Name"));
-    case 1:
-        return QVariant(tr("Server"));
-    case 2:
-        return QVariant(tr("Status"));
-    case 3:
-        return QVariant(tr("Latency"));
-    case 4:
-        return QVariant(tr("Local Port"));
-    case 5:
-        return QVariant(tr("Term Usage"));
-    case 6:
-        return QVariant(tr("Total Usage"));
-    case 7:
-        return QVariant(tr("Reset Date"));
-    case 8:
-        return QVariant(tr("Last Used"));
-    default:
-        return QVariant();
-    }
+	return header_.value(section);
 }
 
 QModelIndex ConnectionTableModel::index(int row, int column, const QModelIndex &) const
@@ -87,13 +67,15 @@ bool ConnectionTableModel::removeRows(int row, int count, const QModelIndex &par
 
 void ConnectionTableModel::removeAirsConnection(QString airportUrl) {
 	for(int i=items.count()-1;i>-1;--i) {
-		if(items.at(i)->connection()->airportUrl() == airportUrl) {
+		if(items.at(i)->connection()->profile().airportInfo_.url_ == airportUrl) {
 			beginRemoveRows(QModelIndex(),i,i);
 			ConnectionItem* ci = items.takeAt(i);
 			delete ci;
 			endRemoveRows();
 		}
 	}
+
+	mapAirInfo_.remove(airportUrl);
 }
 
 bool ConnectionTableModel::move(int row, int target, const QModelIndex &parent)
@@ -131,7 +113,7 @@ bool ConnectionTableModel::appendConnection(Connection *con, const QModelIndex &
     items.append(newItem);
     endInsertRows();
 
-	hashAirItems_[con->airportUrl().isEmpty() ? "UnKnown" : con->airportUrl()] << newItem;
+	mapAirItems_[con->profile().airportInfo_.url_.isEmpty() ? "UnKnown" : con->profile().airportInfo_.url_] << newItem;
 
     return true;
 }
@@ -148,7 +130,11 @@ void ConnectionTableModel::disconnectConnectionsAt(const QString &addr, quint16 
                 con->stop();
             }
         }
-    }
+	}
+}
+
+QStringList ConnectionTableModel::airportUrls() {
+	return mapAirItems_.keys();
 }
 
 void ConnectionTableModel::testAllLatency()
@@ -158,15 +144,15 @@ void ConnectionTableModel::testAllLatency()
 	}
 }
 
-void ConnectionTableModel::onSubsParsed(QList<SQProfile> profiles, AirportInfo airInfo) {
-	if(hashAirItems_.contains(airInfo.url_)) {
+void ConnectionTableModel::addAirConnection(QList<SQProfile> profiles, AirportInfo airInfo) {
+	if(mapAirItems_.contains(airInfo.url_)) {
 		removeAirsConnection(airInfo.url_);
 	}
 
 	for(SQProfile& p : profiles)
-		appendConnection(new Connection(p,this,airInfo.url_));
+		appendConnection(new Connection(p,this));
 
-	BusView::inst()->setting().saveProfile(*this);
+	mapAirInfo_[airInfo.url_] = airInfo;
 }
 
 void ConnectionTableModel::onConnectionStateChanged(bool running)
@@ -174,7 +160,7 @@ void ConnectionTableModel::onConnectionStateChanged(bool running)
     ConnectionItem *item = qobject_cast<ConnectionItem*>(sender());
     int row = items.indexOf(item);
     emit dataChanged(this->index(row, 0),
-                     this->index(row, ConnectionItem::columnCount() - 1));
+					 this->index(row, header_.count() - 1));
     emit rowStatusChanged(row, running);
 }
 

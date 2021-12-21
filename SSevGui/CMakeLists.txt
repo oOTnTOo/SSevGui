@@ -22,11 +22,11 @@ add_executable(SSevGui
   connectionitem.cpp
   connectiontablemodel.cpp
   statusnotifier.cpp
-  sqprofile.cpp
   ConnectionInfoWgt.cpp
   Settings.cpp
   SubscriptionManagerWgt.cpp
   BusView.cpp
+  DataDefine.cpp
   SSevGUI.qrc
 )
 

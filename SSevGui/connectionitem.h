@@ -31,7 +31,6 @@ public:
     explicit ConnectionItem(Connection *_con, QObject *parent = nullptr);
 	~ConnectionItem();
 
-    static int columnCount();
     QVariant data(int column, int role = Qt::DisplayRole) const;
 
     Connection* connection();

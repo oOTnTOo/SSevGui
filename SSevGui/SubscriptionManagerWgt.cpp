@@ -1,6 +1,7 @@
 #include "SubscriptionManagerWgt.h"
 #include "ui_SubscriptionManagerWgt.h"
 
+#include <QMessageBox>
 #include "BusView.h"
 
 SubscriptionManagerWgt::SubscriptionManagerWgt(QWidget *parent) :
@@ -24,11 +25,15 @@ SubscriptionManagerWgt::~SubscriptionManagerWgt()
 
 void SubscriptionManagerWgt::on_btnAdd_clicked() {
 	//ui->btnAdd->setEnabled(false);
-	BusView::inst()->getSubsContent(ui->editAirLink->text());
+	BusView::inst()->updateAirport(ui->editAirLink->text());
 }
 
 void SubscriptionManagerWgt::on_btnDel_clicked() {
 	QListWidgetItem* it = ui->listAir->takeItem(ui->listAir->currentRow());
+	if(QMessageBox::Yes ==
+	   QMessageBox::question(this,"Tips","Delete all connection in this airport?",QMessageBox::Yes|QMessageBox::No)){
+		emit sig_DeleteAirportConnection(it->data(Qt::UserRole+1).value<AirportInfo>().url_);
+	}
 	delete it;
 
 	BusView::inst()->setting().saveAirInfos(ui->listAir);

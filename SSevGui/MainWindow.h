@@ -4,10 +4,11 @@
 #include <QMainWindow>
 #include <QLocalServer>
 #include <QCloseEvent>
-#include <QSortFilterProxyModel>
 #include <QProcess>
-#include "connectiontablemodel.h"
 #include "statusnotifier.h"
+
+#include <QSortFilterProxyModel>
+#include "connectiontablemodel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +22,7 @@ public:
 	~MainWindow();
 
 	bool isInstanceRunning();
+	QMenu* subscriptionMenu();
 
 private slots:
 	void onSingleInstanceConnect();
@@ -46,7 +48,13 @@ private slots:
 	void on_actionConnect_triggered();
 	void on_actionClear_triggered();
 	void on_actionManager_triggered();
+	void on_actionUpdate_triggered();
 
 	void on_tableServers_doubleClicked(const QModelIndex &index);
+
+	void on_editFilter_editingFinished();
+
+	void onSubsParsed(QList<SQProfile> profiles, AirportInfo airInfo);
+	void onDeleteAirport(QString airUrl);
 };
 #endif // SERVERSWINDOW_H

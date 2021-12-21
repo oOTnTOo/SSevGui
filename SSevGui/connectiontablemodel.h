@@ -46,9 +46,12 @@ public:
 
     void disconnectConnectionsAt(const QString &addr, quint16 port);
 
+	QStringList airportUrls();
+	QStringList header_;
+
 public slots:
     void testAllLatency();
-	void onSubsParsed(QList<SQProfile> profiles, AirportInfo airInfo);
+	void addAirConnection(QList<SQProfile> profiles, AirportInfo airInfo);
 
 signals:
     void message(const QString &);
@@ -56,7 +59,8 @@ signals:
 
 private:
     QList<ConnectionItem*> items;
-	QHash<QString, QList<ConnectionItem*>> hashAirItems_;
+	QMap<QString, QList<ConnectionItem*>> mapAirItems_;
+	QMap<QString, AirportInfo> mapAirInfo_;
     static QString convertLatencyToString(const int latency);
 
 private slots:

@@ -12,7 +12,7 @@ StatusNotifier::StatusNotifier(MainWindow *w, bool startHiden, QObject *parent) 
     window(w)
 {
 	systray.setIcon(QIcon(":/icon/Resource/shadowsocks-qt5.png"));
-    systray.setToolTip(QString("Shadowsocks-Qt5"));
+	systray.setToolTip(QString("SSevGui"));
     connect(&systray, &QSystemTrayIcon::activated, [this](QSystemTrayIcon::ActivationReason r) {
         if (r != QSystemTrayIcon::Context) {
             this->activate();
@@ -21,7 +21,12 @@ StatusNotifier::StatusNotifier(MainWindow *w, bool startHiden, QObject *parent) 
     minimiseRestoreAction = new QAction(startHiden ? tr("Restore") : tr("Minimise"), this);
     connect(minimiseRestoreAction, &QAction::triggered, this, &StatusNotifier::activate);
     systrayMenu.addAction(minimiseRestoreAction);
-    systrayMenu.addAction(QIcon::fromTheme("application-exit", QIcon::fromTheme("exit")), tr("Quit"), qApp, SLOT(quit()));
+	systrayMenu.addSeparator();
+	//systrayMenu.addAction(tr("Subscription"))
+	systrayMenu.addMenu(w->subscriptionMenu());
+
+	systrayMenu.addSeparator();
+	systrayMenu.addAction(tr("Quit"), qApp, &QApplication::quit);
     systray.setContextMenu(&systrayMenu);
     systray.show();
 }

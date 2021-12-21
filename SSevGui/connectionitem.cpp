@@ -25,11 +25,6 @@ const QStringList ConnectionItem::bytesUnits = QStringList()
         << " B" << " KiB" << " MiB" << " GiB" << " TiB"
         << " PiB" << " EiB" << " ZiB" << " YiB";
 
-int ConnectionItem::columnCount()
-{
-    return 9;
-}
-
 QVariant ConnectionItem::data(int column, int role) const
 {
     if (!con) {
@@ -77,6 +72,9 @@ QVariant ConnectionItem::data(int column, int role) const
             } else {
 				return QVariant(con->profile().lastTime);
             }
+		case 9:// airport
+			if(role == Qt::DisplayRole)
+				return con->profile().airportInfo_.name_;
         default:
             return QVariant();
         }
