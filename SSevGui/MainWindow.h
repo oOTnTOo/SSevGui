@@ -55,7 +55,6 @@ private slots:
 
 	void on_tableServers_customContextMenuRequested(const QPoint &pos);
 	void on_tableServers_doubleClicked(const QModelIndex &index);
-	void on_tableServers_clicked(const QModelIndex &index);
 
 	void on_editFilter_editingFinished();
 

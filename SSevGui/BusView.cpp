@@ -23,10 +23,12 @@ void BusView::init(ConnectionTableModel* model) {
 	model_ = model;
 
 	settings_.readProfile(model_);
+	emit sig_modelItemChanged();
 }
 
-bool BusView::startProxy(SQProfile prof) {
-	//SQProfile prof = model_->getItem(ui->tableServers->currentIndex().row())->connection()->profile();
+bool BusView::startProxy(ConnectionItem* connItem)
+{
+	const SQProfile& prof = connItem->connection()->profile();
 
 	QStringList sl = {
 		"-s",prof.serverAddress,
@@ -44,6 +46,9 @@ bool BusView::startProxy(SQProfile prof) {
 	if(proc_.state() != QProcess::NotRunning){
 		proc_.kill();
 		qDebug() << proc_.waitForFinished(3000);
+		curItem_->connection()->stop();
+		curItem_ = nullptr;
+		emit sig_currentItemChanged(nullptr);
 	}
 	if(!QFile::exists(qApp->applicationDirPath()+"/ss-local")) {
 		emit sig_notifyText("ss-local not found, copy ss-local in program dir");
@@ -52,6 +57,9 @@ bool BusView::startProxy(SQProfile prof) {
 	proc_.start(qApp->applicationDirPath()+"/ss-local "+sl.join(" "));
 	qDebug() << proc_.waitForStarted(3000) << proc_.arguments();
 
+	curItem_ = connItem;
+	connItem->connection()->start();
+	emit sig_currentItemChanged(curItem_);
 	return true;
 }
 
@@ -59,6 +67,11 @@ bool BusView::stopProxy() {
 	proc_.terminate();
 	if(proc_.waitForFinished(10000)) {
 		proc_.kill();
+	}
+	if(curItem_) {
+		curItem_->connection()->stop();
+		curItem_ = nullptr;
+		emit sig_currentItemChanged(nullptr);
 	}
 
 	return true;
@@ -70,9 +83,14 @@ void BusView::updateAirport(QString url) {
 }
 
 void BusView::updateAllAirport() {
+	stopProxy();
 	for(AirportInfo& ai : settings_.readAirInfos()) {
 		updateAirport(ai.url_);
 	}
+}
+
+const QMap<QString, QList<ConnectionItem*> >& BusView::connectionItems() const{
+	return model_->connectionItems();
 }
 
 Settings& BusView::setting() {

@@ -31,6 +31,7 @@ public:
     explicit ConnectionTableModel(QObject *parent = nullptr);
     ~ConnectionTableModel();
 
+	const QMap<QString, QList<ConnectionItem*> >& connectionItems() const;
     ConnectionItem *getItem(const int &row) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
@@ -43,6 +44,7 @@ public:
 	void clearItems();
 
     bool appendConnection(Connection *con, const QModelIndex &parent = QModelIndex());
+	bool appendProfiles(const QList<SQProfile>& pros);
 
     void disconnectConnectionsAt(const QString &addr, quint16 port);
 

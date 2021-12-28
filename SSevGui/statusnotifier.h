@@ -24,23 +24,42 @@
 #include <QMenu>
 
 class MainWindow;
-
+class ConnectionItem;
+class ServerAction;
 class StatusNotifier : public QObject
 {
     Q_OBJECT
 public:
 	StatusNotifier(MainWindow *w, bool startHiden, QObject *parent = 0);
 
+	/**
+	 * @brief 更新托盘菜单中的服务器列表
+	 */
+	void updateServerList();
+
 public slots:
     void activate();
     void showNotification(const QString &);
     void onWindowVisibleChanged(bool visible);
 
+private slots:
+	void serverMenuClicked(bool checked);
+
 private:
-    QMenu systrayMenu;
+	QMenu systrayMenu;
+	QMenu serverList_;
     QAction *minimiseRestoreAction;
     QSystemTrayIcon systray;
     MainWindow *window;
+};
+
+class ServerAction : public QAction {
+	Q_OBJECT
+public:
+	ServerAction(QString text, QWidget* parent);
+
+public slots:
+	void onCurrentItemChanged(const ConnectionItem* newItem);
 };
 
 #endif // STATUSNOTIFIER_H

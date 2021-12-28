@@ -21,7 +21,6 @@ Connection::Connection(QString uri, QObject *parent) :
 
 Connection::~Connection()
 {
-	stop();
 }
 
 void Connection::setProfile(SQProfile profile) {
@@ -69,8 +68,20 @@ void Connection::onLatencyAvailable(const int latency)
 
 void Connection::start() {
 	running = true;
+
+#ifdef Q_OS_LINUX
+	QString cmd = QString("gsettings set org.gnome.system.proxy.socks host '%1'").arg(profile_.localAddress);
+	system(cmd.toUtf8().constData());
+	cmd = QString("gsettings set org.gnome.system.proxy.socks port '%1'").arg(profile_.localPort);
+	system(cmd.toUtf8().constData());
+	system("gsettings set org.gnome.system.proxy mode 'manual'");
+#endif
 }
 
 void Connection::stop() {
 	running = false;
+
+#ifdef Q_OS_LINUX
+	system("gsettings set org.gnome.system.proxy mode 'none'");
+#endif
 }

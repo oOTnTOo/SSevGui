@@ -28,8 +28,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 	connect(BusView::inst(),&BusView::sig_respParsed,this,&MainWindow::onSubsParsed);
 	connect(BusView::inst(),&BusView::sig_notifyText,sntfier_,&StatusNotifier::showNotification);
+	connect(BusView::inst(),&BusView::sig_currentItemChanged,ui->tableServers,&QTableView::reset);
 
-	ui->statusbar->showMessage(tr("Caution: Linux need modify socks5 proxy setting manully."));
+	//ui->statusbar->showMessage(tr("Caution: Linux need modify socks5 proxy setting manully."));
 }
 
 MainWindow::~MainWindow() {
@@ -89,6 +90,7 @@ void MainWindow::showEvent(QShowEvent* event) {
 
 void MainWindow::closeEvent(QCloseEvent *event){
 	QMainWindow::closeEvent(event);
+	BusView::inst()->stopProxy();
 	return;
 
 	if(event->spontaneous()) {
@@ -105,6 +107,7 @@ void MainWindow::on_actionManually_triggered() {
 		Connection* conn = new Connection(ciw->profile(), model_);
 		model_->appendConnection(conn);
 		BusView::inst()->setting().saveAllProfile(*model_);
+		emit BusView::inst()->sig_modelItemChanged();
 	}
 	delete ciw;
 }
@@ -114,17 +117,15 @@ void MainWindow::on_actionConnect_triggered() {
 	if(!idx.isValid()) {
 		return;
 	}
+	ui->actionConnect->setEnabled(false);
+
+	ConnectionItem* conn = model_->getItem(proxyModel_->mapToSource(idx).row());
+	if(conn->connection()->isRunning())
+		BusView::inst()->stopProxy();
+	else
+		BusView::inst()->startProxy(conn);
+
 	ui->actionConnect->setEnabled(true);
-	Connection* conn = model_->getItem(proxyModel_->mapToSource(idx).row())->connection();
-	if(conn->isRunning()) {
-		if(BusView::inst()->stopProxy()) {
-			model_->getItem(proxyModel_->mapToSource(idx).row())->connection()->stop();
-		}
-	} else {
-		if(BusView::inst()->startProxy(conn->profile())) {
-			model_->getItem(proxyModel_->mapToSource(idx).row())->connection()->start();
-		}
-	}
 }
 
 void MainWindow::on_actionClear_triggered() {
@@ -204,20 +205,13 @@ void MainWindow::on_tableServers_doubleClicked(const QModelIndex &index) {
 	delete ciw;
 }
 
-void MainWindow::on_tableServers_clicked(const QModelIndex& index) {
-	if(!index.isValid())
-		return;
-
-	//updateTabelServersMenu(proxyModel_->mapToSource(index));
-	//(model_->getItem(index.row())->connection()->isRunning())
-}
-
 void MainWindow::on_editFilter_editingFinished() {
 	proxyModel_->setFilterWildcard(ui->editFilter->text());
 }
 
 void MainWindow::onSubsParsed(QList<SQProfile> profiles, AirportInfo airInfo) {
 	model_->addAirConnection(profiles,airInfo);
+	emit BusView::inst()->sig_modelItemChanged();
 	BusView::inst()->setting().saveAllProfile(*model_);
 	sntfier_->showNotification(QString(tr("%1 updated")).arg(airInfo.name_));
 }

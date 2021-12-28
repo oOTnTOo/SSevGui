@@ -4,28 +4,28 @@
 <context>
     <name>BusView</name>
     <message>
-        <location filename="BusView.cpp" line="106"/>
+        <location filename="BusView.cpp" line="129"/>
         <source>%1 Error:
  %2</source>
-        <translation>%1解析错误：
-%2</translation>
+        <translation>%1 错误：
+ %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="145"/>
+        <location filename="BusView.cpp" line="168"/>
         <source>%1 error: %2</source>
-        <translation>%1连接错误：%2</translation>
+        <translation>%1 错误：%2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="154"/>
+        <location filename="BusView.cpp" line="177"/>
         <source>%1 error: return 
 %2</source>
-        <translation>%1错误：服务器返回
+        <translation>%1 错误：返回 
 %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="161"/>
+        <location filename="BusView.cpp" line="184"/>
         <source>Unsupport protocal</source>
-        <translation type="unfinished"></translation>
+        <translation>不支持的协议</translation>
     </message>
 </context>
 <context>
@@ -33,8 +33,7 @@
     <message>
         <location filename="ConnectionInfoWgt.ui" line="14"/>
         <source>Profile modify</source>
-        <oldsource>Server modify</oldsource>
-        <translation>编辑配置信息</translation>
+        <translation>服务器信息</translation>
     </message>
     <message>
         <location filename="ConnectionInfoWgt.ui" line="20"/>
@@ -284,7 +283,7 @@
     </message>
     <message>
         <location filename="MainWindow.ui" line="102"/>
-        <location filename="MainWindow.cpp" line="76"/>
+        <location filename="MainWindow.cpp" line="77"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
@@ -304,17 +303,17 @@
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="32"/>
+        <location filename="MainWindow.cpp" line="33"/>
         <source>Caution: Linux need modify socks5 proxy setting manully.</source>
         <translation>注意：Linux系统需要手动设置系统代理。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="76"/>
+        <location filename="MainWindow.cpp" line="77"/>
         <source>Disconnect</source>
         <translation>断开</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="222"/>
+        <location filename="MainWindow.cpp" line="216"/>
         <source>%1 updated</source>
         <translation>%1 更新完成</translation>
     </message>
@@ -331,21 +330,36 @@
 <context>
     <name>StatusNotifier</name>
     <message>
-        <location filename="statusnotifier.cpp" line="21"/>
-        <location filename="statusnotifier.cpp" line="61"/>
+        <location filename="statusnotifier.cpp" line="22"/>
+        <location filename="statusnotifier.cpp" line="91"/>
         <source>Restore</source>
         <translation>显示</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="21"/>
-        <location filename="statusnotifier.cpp" line="61"/>
+        <location filename="statusnotifier.cpp" line="22"/>
+        <location filename="statusnotifier.cpp" line="91"/>
         <source>Minimise</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="29"/>
+        <location filename="statusnotifier.cpp" line="27"/>
+        <source>Server</source>
+        <translation>服务器</translation>
+    </message>
+    <message>
+        <location filename="statusnotifier.cpp" line="34"/>
         <source>Quit</source>
         <translation>退出</translation>
+    </message>
+    <message>
+        <location filename="statusnotifier.cpp" line="45"/>
+        <source>[%1/%2 G %3 day] %4</source>
+        <translation>[%1/%2 G %3天] %4</translation>
+    </message>
+    <message>
+        <location filename="statusnotifier.cpp" line="51"/>
+        <source>Unknown</source>
+        <translation>未知</translation>
     </message>
 </context>
 <context>

@@ -23,14 +23,19 @@ public:
 
 	void init(ConnectionTableModel* model);
 
-	bool startProxy(SQProfile profile);
+	bool startProxy(ConnectionItem* connItem);
 	bool stopProxy();
 	void updateAirport(QString url);
 	void updateAllAirport();
 
+	/**
+	 * @brief 获取服务器信息列表
+	 * @return 返回服务器列表，并归档，注意，不可修改，所有服务器信息的改动需通过model
+	 */
+	const QMap<QString, QList<ConnectionItem*> >& connectionItems() const;
+
 	Settings& setting();
 	AirportInfo airportInfo(QString airUrl) const;
-
 
 private:
 	explicit BusView(QObject *parent = nullptr);
@@ -42,13 +47,15 @@ private:
 	Settings settings_;
 
 	ConnectionTableModel *model_ = nullptr;
-	//QSortFilterProxyModel *proxyModel_ = nullptr;
+	ConnectionItem* curItem_ = nullptr;
 
 	QNetworkAccessManager* netMng_;
 
 signals:
 	void sig_notifyText(QString errorString);
 	void sig_respParsed(QList<SQProfile> pros, AirportInfo airInfo);
+	void sig_modelItemChanged();
+	void sig_currentItemChanged(ConnectionItem* newItem);
 
 private slots:
 	void onSubsResponse(QNetworkReply* reply);

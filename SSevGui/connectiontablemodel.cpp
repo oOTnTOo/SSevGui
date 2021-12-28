@@ -9,6 +9,11 @@ ConnectionTableModel::ConnectionTableModel(QObject *parent) :
 ConnectionTableModel::~ConnectionTableModel()
 {}
 
+const QMap<QString, QList<ConnectionItem*> >& ConnectionTableModel::connectionItems() const {
+	//const QMap<QString, QList<ConnectionItem*> >* t = &mapAirItems_;
+	return mapAirItems_;
+}
+
 ConnectionItem *ConnectionTableModel::getItem(const int &row) const
 {
     return items.at(row);
@@ -114,7 +119,25 @@ bool ConnectionTableModel::appendConnection(Connection *con, const QModelIndex &
 
 	mapAirItems_[con->profile().airportInfo_.url_.isEmpty() ? "UnKnown" : con->profile().airportInfo_.url_] << newItem;
 
-    return true;
+	return true;
+}
+
+bool ConnectionTableModel::appendProfiles(const QList<SQProfile>& pros) {
+	beginResetModel();
+	for (const SQProfile& pro : pros) {
+		Connection* con = new Connection(pro,this);
+		ConnectionItem* newItem = new ConnectionItem(con, this);
+		newItem->connection()->setParent(newItem);
+		connect(newItem, &ConnectionItem::message, this, &ConnectionTableModel::message);
+		connect(newItem, &ConnectionItem::stateChanged, this, &ConnectionTableModel::onConnectionStateChanged);
+		connect(newItem, &ConnectionItem::latencyChanged, this, &ConnectionTableModel::onConnectionLatencyChanged);
+		connect(newItem, &ConnectionItem::dataUsageChanged, this, &ConnectionTableModel::onConnectionDataUsageChanged);
+		items << newItem;
+
+		mapAirItems_[pro.airportInfo_.url_.isEmpty() ? "UnKnown" : pro.airportInfo_.url_] << newItem;
+	}
+	endResetModel();
+	return true;
 }
 
 void ConnectionTableModel::disconnectConnectionsAt(const QString &addr, quint16 port)
@@ -144,9 +167,7 @@ void ConnectionTableModel::addAirConnection(QList<SQProfile> profiles, AirportIn
 		removeAirsConnection(airInfo.url_);
 	}
 
-	for(SQProfile& p : profiles)
-		appendConnection(new Connection(p,this));
-
+	appendProfiles(profiles);
 }
 
 void ConnectionTableModel::onConnectionStateChanged(bool running)

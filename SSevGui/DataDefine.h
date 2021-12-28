@@ -33,7 +33,7 @@ struct SQProfile
 	QString method;
 	QString password;
 	int timeout;
-	int latency;
+	int latency = 0;
 	quint64 currentUsage;
 	quint64 totalUsage;
 	QDateTime lastTime;//last time this connection is used
