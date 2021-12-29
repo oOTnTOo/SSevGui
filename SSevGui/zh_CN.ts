@@ -4,26 +4,26 @@
 <context>
     <name>BusView</name>
     <message>
-        <location filename="BusView.cpp" line="129"/>
+        <location filename="BusView.cpp" line="124"/>
         <source>%1 Error:
  %2</source>
         <translation>%1 错误：
  %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="168"/>
+        <location filename="BusView.cpp" line="163"/>
         <source>%1 error: %2</source>
         <translation>%1 错误：%2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="177"/>
+        <location filename="BusView.cpp" line="172"/>
         <source>%1 error: return 
 %2</source>
         <translation>%1 错误：返回 
 %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="184"/>
+        <location filename="BusView.cpp" line="179"/>
         <source>Unsupport protocal</source>
         <translation>不支持的协议</translation>
     </message>
@@ -303,11 +303,6 @@
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="33"/>
-        <source>Caution: Linux need modify socks5 proxy setting manully.</source>
-        <translation>注意：Linux系统需要手动设置系统代理。</translation>
-    </message>
-    <message>
         <location filename="MainWindow.cpp" line="77"/>
         <source>Disconnect</source>
         <translation>断开</translation>
@@ -331,13 +326,13 @@
     <name>StatusNotifier</name>
     <message>
         <location filename="statusnotifier.cpp" line="22"/>
-        <location filename="statusnotifier.cpp" line="91"/>
+        <location filename="statusnotifier.cpp" line="89"/>
         <source>Restore</source>
         <translation>显示</translation>
     </message>
     <message>
         <location filename="statusnotifier.cpp" line="22"/>
-        <location filename="statusnotifier.cpp" line="91"/>
+        <location filename="statusnotifier.cpp" line="89"/>
         <source>Minimise</source>
         <translation>最小化</translation>
     </message>
