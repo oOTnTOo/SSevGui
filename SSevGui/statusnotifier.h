@@ -44,10 +44,12 @@ public slots:
 
 private slots:
 	void serverMenuClicked(bool checked);
+	void onCurrentItemChanged(const ConnectionItem* newItem);
 
 private:
 	QMenu systrayMenu;
 	QMenu serverList_;
+	QAction* actStopProxy_ = nullptr;
     QAction *minimiseRestoreAction;
     QSystemTrayIcon systray;
     MainWindow *window;

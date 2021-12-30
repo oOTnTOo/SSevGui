@@ -21,6 +21,8 @@ void setupApplication(QApplication &a)
 
 	a.setApplicationName(QString("SSevGUI-Qt5"));
 	a.setApplicationDisplayName(QString("SSevGUI-Qt5"));
+	a.setOrganizationDomain("SSevGUI");
+	a.setOrganizationName("SSevGUI");
 	//a.setApplicationVersion(APP_VERSION);
 
 #ifdef Q_OS_WIN

@@ -283,7 +283,7 @@
     </message>
     <message>
         <location filename="MainWindow.ui" line="102"/>
-        <location filename="MainWindow.cpp" line="77"/>
+        <location filename="MainWindow.cpp" line="78"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
@@ -303,12 +303,12 @@
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="77"/>
+        <location filename="MainWindow.cpp" line="78"/>
         <source>Disconnect</source>
         <translation>断开</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="216"/>
+        <location filename="MainWindow.cpp" line="222"/>
         <source>%1 updated</source>
         <translation>%1 更新完成</translation>
     </message>
@@ -326,33 +326,38 @@
     <name>StatusNotifier</name>
     <message>
         <location filename="statusnotifier.cpp" line="22"/>
-        <location filename="statusnotifier.cpp" line="89"/>
+        <location filename="statusnotifier.cpp" line="93"/>
         <source>Restore</source>
         <translation>显示</translation>
     </message>
     <message>
         <location filename="statusnotifier.cpp" line="22"/>
-        <location filename="statusnotifier.cpp" line="89"/>
+        <location filename="statusnotifier.cpp" line="93"/>
         <source>Minimise</source>
         <translation>最小化</translation>
     </message>
     <message>
         <location filename="statusnotifier.cpp" line="27"/>
+        <source>Stop proxy</source>
+        <translation>停止代理</translation>
+    </message>
+    <message>
+        <location filename="statusnotifier.cpp" line="31"/>
         <source>Server</source>
         <translation>服务器</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="34"/>
+        <location filename="statusnotifier.cpp" line="38"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="45"/>
+        <location filename="statusnotifier.cpp" line="49"/>
         <source>[%1/%2 G %3 day] %4</source>
         <translation>[%1/%2 G %3天] %4</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="51"/>
+        <location filename="statusnotifier.cpp" line="55"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>

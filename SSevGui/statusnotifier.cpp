@@ -24,6 +24,10 @@ StatusNotifier::StatusNotifier(MainWindow *w, bool startHiden, QObject *parent) 
     systrayMenu.addAction(minimiseRestoreAction);
 	systrayMenu.addSeparator();
 
+	actStopProxy_ = systrayMenu.addAction(tr("Stop proxy"),BusView::inst(),&BusView::stopProxy);
+	connect(BusView::inst(),&BusView::sig_currentItemChanged,this,&StatusNotifier::onCurrentItemChanged);
+	actStopProxy_->setEnabled(false);
+
 	serverList_.setTitle(tr("Server"));
 	systrayMenu.addMenu(&serverList_);
 	connect(BusView::inst(),&BusView::sig_modelItemChanged,this,&StatusNotifier::updateServerList);
@@ -99,6 +103,10 @@ void StatusNotifier::serverMenuClicked(bool checked) {
 	} else {
 		BusView::inst()->stopProxy();
 	}
+}
+
+void StatusNotifier::onCurrentItemChanged(const ConnectionItem* newItem) {
+	actStopProxy_->setEnabled(newItem);
 }
 
 

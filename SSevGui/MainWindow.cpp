@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
 	connect(BusView::inst(),&BusView::sig_currentItemChanged,ui->tableServers,&QTableView::reset);
 
 	//ui->statusbar->showMessage(tr("Caution: Linux need modify socks5 proxy setting manully."));
+	setWindowIcon(QIcon(":/icon/Resource/shadowsocks-qt5.png"));
 }
 
 MainWindow::~MainWindow() {
@@ -89,10 +90,11 @@ void MainWindow::showEvent(QShowEvent* event) {
 }
 
 void MainWindow::closeEvent(QCloseEvent *event){
+#ifndef NDEBUG
 	QMainWindow::closeEvent(event);
 	BusView::inst()->stopProxy();
 	return;
-
+#endif
 	if(event->spontaneous()) {
 		event->ignore();
 		hide();
@@ -144,6 +146,10 @@ void MainWindow::on_actionManager_triggered() {
 
 void MainWindow::on_actionUpdate_triggered() {
 	BusView::inst()->updateAllAirport();
+}
+
+void MainWindow::on_actionQuit_triggered() {
+	qApp->quit();
 }
 
 void MainWindow::on_menuConnection_aboutToShow() {

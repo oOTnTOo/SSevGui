@@ -2,7 +2,7 @@
 #include <QDebug>
 
 Settings::Settings(QObject *parent) : QObject(parent) {
-	settings_.setPath(QSettings::IniFormat,QSettings::UserScope,"SSevGUI.conf");
+	settings_.setPath(QSettings::IniFormat,QSettings::UserScope,"SSevGUI-Qt5");
 	qDebug() << settings_.fileName();
 	qRegisterMetaTypeStreamOperators<SQProfile>("SQProfile");
 }
