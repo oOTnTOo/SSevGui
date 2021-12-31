@@ -152,6 +152,16 @@ void MainWindow::on_actionQuit_triggered() {
 	qApp->quit();
 }
 
+void MainWindow::on_actionLagTest_triggered() {
+	QModelIndex idx = ui->tableServers->currentIndex();
+	if(!idx.isValid()) {
+		return;
+	}
+
+	ConnectionItem* conn = model_->getItem(proxyModel_->mapToSource(idx).row());
+	conn->testLatency();
+}
+
 void MainWindow::on_menuConnection_aboutToShow() {
 	QModelIndex idx = ui->tableServers->currentIndex();
 	if(!idx.isValid())

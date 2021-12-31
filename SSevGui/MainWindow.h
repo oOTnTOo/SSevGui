@@ -51,6 +51,7 @@ private slots:
 	void on_actionManager_triggered();
 	void on_actionUpdate_triggered();
 	void on_actionQuit_triggered();
+	void on_actionLagTest_triggered();
 
 	void on_menuConnection_aboutToShow();
 

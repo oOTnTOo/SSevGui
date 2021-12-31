@@ -1,4 +1,5 @@
 #include "connectionitem.h"
+#include "ConnectionTest.h"
 #include <QFont>
 #include <QVariant>
 
@@ -11,8 +12,8 @@ ConnectionItem::ConnectionItem(Connection *_con, QObject *parent) :
         connect(con, &Connection::stateChanged, this, &ConnectionItem::onConnectionStateChanged);
         connect(con, &Connection::stateChanged, this, &ConnectionItem::stateChanged);
         connect(con, &Connection::dataUsageChanged, this, &ConnectionItem::dataUsageChanged);
-        connect(con, &Connection::latencyAvailable, this, &ConnectionItem::onConnectionPingFinished);
-        connect(con, &Connection::latencyAvailable, this, &ConnectionItem::latencyChanged);
+		connect(con, &Connection::latencyTested, this, &ConnectionItem::onConnectionPingFinished);
+		connect(con, &Connection::latencyTested, this, &ConnectionItem::latencyChanged);
         connect(con, &Connection::startFailed, this, &ConnectionItem::onStartFailed);
 	}
 }
@@ -126,9 +127,8 @@ QString ConnectionItem::convertBytesToHumanReadable(quint64 quot)
     return QString("%1 %2").arg(output, 0, 'f', 2).arg(bytesUnits.at(unitId));
 }
 
-void ConnectionItem::testLatency()
-{
-	//con->latencyTest();
+void ConnectionItem::testLatency() {
+	con->latencyTest();
 }
 
 Connection* ConnectionItem::connection()
@@ -145,13 +145,11 @@ void ConnectionItem::onConnectionStateChanged(bool running)
     }
 }
 
-void ConnectionItem::onConnectionPingFinished(const int latency)
+void ConnectionItem::onConnectionPingFinished(const int latency, QString error)
 {
-    if (latency == SQProfile::LATENCY_TIMEOUT) {
-		emit message(con->name() + " " + tr("timed out"));
-    } else if (latency == SQProfile::LATENCY_ERROR) {
-		emit message(con->name() + " " + tr("latency test failed"));
-    }
+	if (latency < 0) {
+		emit message(con->name() + " " + error);
+	}
 }
 
 void ConnectionItem::onStartFailed()

@@ -11,19 +11,19 @@
  %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="163"/>
+        <location filename="BusView.cpp" line="164"/>
         <source>%1 error: %2</source>
         <translation>%1 错误：%2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="172"/>
+        <location filename="BusView.cpp" line="173"/>
         <source>%1 error: return 
 %2</source>
         <translation>%1 错误：返回 
 %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="179"/>
+        <location filename="BusView.cpp" line="180"/>
         <source>Unsupport protocal</source>
         <translation>不支持的协议</translation>
     </message>
@@ -144,37 +144,37 @@
 <context>
     <name>ConnectionItem</name>
     <message>
-        <location filename="connectionitem.cpp" line="44"/>
+        <location filename="connectionitem.cpp" line="45"/>
         <source>Connected</source>
         <translation>已连接</translation>
     </message>
     <message>
-        <location filename="connectionitem.cpp" line="45"/>
+        <location filename="connectionitem.cpp" line="46"/>
         <source>Disconnected</source>
         <translation>断开</translation>
     </message>
     <message>
-        <location filename="connectionitem.cpp" line="97"/>
+        <location filename="connectionitem.cpp" line="98"/>
         <source>Timeout</source>
         <translation>超时</translation>
     </message>
     <message>
-        <location filename="connectionitem.cpp" line="100"/>
+        <location filename="connectionitem.cpp" line="101"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="connectionitem.cpp" line="103"/>
+        <location filename="connectionitem.cpp" line="104"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="connectionitem.cpp" line="108"/>
+        <location filename="connectionitem.cpp" line="109"/>
         <source>s</source>
         <translation>秒</translation>
     </message>
     <message>
-        <location filename="connectionitem.cpp" line="110"/>
+        <location filename="connectionitem.cpp" line="111"/>
         <source>ms</source>
         <translation>毫秒</translation>
     </message>
@@ -189,17 +189,7 @@
         <translation>断开</translation>
     </message>
     <message>
-        <location filename="connectionitem.cpp" line="151"/>
-        <source>timed out</source>
-        <translation>超时</translation>
-    </message>
-    <message>
-        <location filename="connectionitem.cpp" line="153"/>
-        <source>latency test failed</source>
-        <translation>延迟检测失败</translation>
-    </message>
-    <message>
-        <location filename="connectionitem.cpp" line="159"/>
+        <location filename="connectionitem.cpp" line="157"/>
         <source>Failed to start</source>
         <translation>启动代理失败</translation>
     </message>
@@ -266,41 +256,46 @@
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="80"/>
+        <location filename="MainWindow.ui" line="82"/>
         <source>&amp;Subscription</source>
         <oldsource>Subscription</oldsource>
         <translation>订阅(&amp;S)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="92"/>
+        <location filename="MainWindow.ui" line="94"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="97"/>
+        <location filename="MainWindow.ui" line="99"/>
         <source>Manually</source>
         <translation>手动添加</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="102"/>
+        <location filename="MainWindow.ui" line="104"/>
         <location filename="MainWindow.cpp" line="78"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="107"/>
+        <location filename="MainWindow.ui" line="109"/>
         <source>Clear</source>
         <translation>全部清除</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="112"/>
+        <location filename="MainWindow.ui" line="114"/>
         <source>Manager</source>
         <translation>管理</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="117"/>
+        <location filename="MainWindow.ui" line="119"/>
         <source>Update</source>
         <translation>更新</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="124"/>
+        <source>Lag test</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="78"/>
@@ -308,7 +303,7 @@
         <translation>断开</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="222"/>
+        <location filename="MainWindow.cpp" line="232"/>
         <source>%1 updated</source>
         <translation>%1 更新完成</translation>
     </message>

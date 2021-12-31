@@ -46,12 +46,12 @@ public:
     bool appendConnection(Connection *con, const QModelIndex &parent = QModelIndex());
 	bool appendProfiles(const QList<SQProfile>& pros);
 
+	void testAllLatency();
     void disconnectConnectionsAt(const QString &addr, quint16 port);
 
 	QStringList header_;
 
 public slots:
-    void testAllLatency();
 	void addAirConnection(QList<SQProfile> profiles, AirportInfo airInfo);
 
 signals:

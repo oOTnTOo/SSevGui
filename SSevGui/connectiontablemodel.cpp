@@ -183,7 +183,7 @@ void ConnectionTableModel::onConnectionLatencyChanged()
 {
     ConnectionItem *item = qobject_cast<ConnectionItem*>(sender());
     int row = items.indexOf(item);
-    emit dataChanged(this->index(row, 3), this->index(row, 3));
+	emit dataChanged(this->index(row, 4), this->index(row, 4));
 }
 
 void ConnectionTableModel::onConnectionDataUsageChanged()

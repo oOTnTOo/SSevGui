@@ -38,6 +38,7 @@ add_executable(SSevGui
   SubscriptionManagerWgt.cpp
   BusView.cpp
   DataDefine.cpp
+  ConnectionTest.cpp
   SSevGUI.qrc
   ${QM_FILES}
 )

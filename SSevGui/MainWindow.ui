@@ -72,6 +72,8 @@
      <addaction name="actionManually"/>
     </widget>
     <addaction name="actionConnect"/>
+    <addaction name="actionLagTest"/>
+    <addaction name="separator"/>
     <addaction name="menuAdd"/>
     <addaction name="actionClear"/>
    </widget>
@@ -115,6 +117,11 @@
   <action name="actionUpdate">
    <property name="text">
     <string>Update</string>
+   </property>
+  </action>
+  <action name="actionLagTest">
+   <property name="text">
+    <string>Lag test</string>
    </property>
   </action>
  </widget>

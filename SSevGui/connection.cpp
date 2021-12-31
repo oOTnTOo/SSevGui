@@ -1,4 +1,5 @@
 #include "connection.h"
+#include "ConnectionTest.h"
 #include <QHostInfo>
 #include <QHostAddress>
 
@@ -49,7 +50,13 @@ bool Connection::isValid() const
 
 const bool &Connection::isRunning() const
 {
-    return running;
+	return running;
+}
+
+void Connection::latencyTest() {
+	ConnectionTest* ct = new ConnectionTest(profile_.serverAddress,profile_.serverPort,this);
+	connect(ct,&ConnectionTest::sig_lagTestFinished,this,&Connection::onTestedLatency);
+	ct->connectTest(profile_.timeout);
 }
 
 
@@ -60,10 +67,10 @@ void Connection::onNewBytesTransmitted(const quint64 &b)
 	emit dataUsageChanged(profile_.currentUsage, profile_.totalUsage);
 }
 
-void Connection::onLatencyAvailable(const int latency)
-{
-	profile_.latency = latency;
-    emit latencyAvailable(latency);
+void Connection::onTestedLatency(int lag, QString error) {
+	profile_.latency = lag;
+	emit latencyTested(lag, error);
+	sender()->deleteLater();
 }
 
 void Connection::start() {

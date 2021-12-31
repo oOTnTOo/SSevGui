@@ -45,7 +45,7 @@ public:
 
 signals:
 	void stateChanged(bool started);
-    void latencyAvailable(const int);
+	void latencyTested(const int lag, QString error);
     void newLogAvailable(const QString &);
     void dataUsageChanged(const quint64 &current, const quint64 &total);
     void startFailed();
@@ -60,7 +60,7 @@ private:
 
 private slots:
     void onNewBytesTransmitted(const quint64 &);
-    void onLatencyAvailable(const int);
+	void onTestedLatency(int lag, QString error);
 };
 Q_DECLARE_METATYPE(Connection*)
 

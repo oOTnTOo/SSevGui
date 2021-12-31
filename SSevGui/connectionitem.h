@@ -51,7 +51,7 @@ private:
 
 private slots:
     void onConnectionStateChanged(bool running);
-    void onConnectionPingFinished(const int latency);
+	void onConnectionPingFinished(const int latency, QString error);
     void onStartFailed();
 };
 
