@@ -73,6 +73,7 @@
     </widget>
     <addaction name="actionConnect"/>
     <addaction name="actionLagTest"/>
+    <addaction name="actionLagTestAll"/>
     <addaction name="separator"/>
     <addaction name="menuAdd"/>
     <addaction name="actionClear"/>
@@ -122,6 +123,11 @@
   <action name="actionLagTest">
    <property name="text">
     <string>Lag test</string>
+   </property>
+  </action>
+  <action name="actionLagTestAll">
+   <property name="text">
+    <string>Lag test all</string>
    </property>
   </action>
  </widget>

@@ -143,10 +143,11 @@ bool BusView::getSSDParseRes(QByteArray bytes, QList<SQProfile>& prfs, AirportIn
 		pro.password = o.value("password").toString();
 		pro.plugin = o.value("plugin").toString().replace("simple-obfs","obfs-local");
 		pro.pluginOpt = o.value("plugin_options").toString();
-		pro.timeout = 5000;
+		pro.timeout = SQProfile::DEFAULT_TIMEOUT;
+		pro.latency = SQProfile::LATENCY_UNKNOWN;
 
 		pro.localAddress = "0.0.0.0";
-		pro.localPort = 1088;
+		pro.localPort = SQProfile::DEFAULT_PORT;
 
 		pro.airportInfo_ = ai;
 

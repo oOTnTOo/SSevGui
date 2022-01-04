@@ -28,8 +28,6 @@ public:
 	void updateAirport(QString url);
 	void updateAllAirport();
 
-	void testServer(SQProfile* profile);
-
 	/**
 	 * @brief 获取服务器信息列表
 	 * @return 返回服务器列表，并归档，注意，不可修改，所有服务器信息的改动需通过model

@@ -35,7 +35,7 @@ public:
 	/**
 	 * @brief 更新托盘菜单中的服务器列表
 	 */
-	void updateServerList();
+	void createServerList();
 
 public slots:
     void activate();
@@ -58,10 +58,12 @@ private:
 class ServerAction : public QAction {
 	Q_OBJECT
 public:
-	ServerAction(QString text, QWidget* parent);
+	ServerAction(QWidget* parent);
+	void setText(const QString& name, const QString& address, quint16 port, QString lag);
 
 public slots:
 	void onCurrentItemChanged(const ConnectionItem* newItem);
+	void onItemLatencyChanged();
 };
 
 #endif // STATUSNOTIFIER_H

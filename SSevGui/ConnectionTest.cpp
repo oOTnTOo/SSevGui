@@ -19,7 +19,7 @@ void ConnectionTest::connectTest(int timeout) {
 
 void ConnectionTest::onTimeout() {
 	socket_.abort();
-	emit sig_lagTestFinished(-1, "Connect time out");
+	emit sig_lagTestFinished(SQProfile::LATENCY_TIMEOUT, "Connect time out");
 }
 
 void ConnectionTest::onSocketConnected() {
@@ -29,5 +29,5 @@ void ConnectionTest::onSocketConnected() {
 
 void ConnectionTest::onSocketError(QTcpSocket::SocketError error) {
 	timeoutTimer_.stop();
-	emit sig_lagTestFinished(-1, socket_.errorString());
+	emit sig_lagTestFinished(SQProfile::LATENCY_TIMEOUT, socket_.errorString());
 }

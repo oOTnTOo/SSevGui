@@ -32,13 +32,12 @@ void Settings::saveAllProfile(const ConnectionTableModel& model) {
 	settings_.endArray();
 }
 
-void Settings::saveProfile(int index, SQProfile profile) {
-	settings_.beginWriteArray("Profile");
-	settings_.setArrayIndex(index);
-	QVariant value = QVariant::fromValue<SQProfile>(profile);
-	settings_.setValue("SQProfile", value);
-	settings_.endArray();
-}
+//void Settings::saveProfile(int index, SQProfile profile) {
+//	settings_.beginWriteArray("Profile");
+//	QVariant value = QVariant::fromValue<SQProfile>(profile);
+//	settings_.setValue("SQProfile", value);
+//	settings_.endArray();
+//}
 
 void Settings::readAirInfosIntoList(QListWidget* listWgt) {
 	int count = settings_.beginReadArray("Airport");

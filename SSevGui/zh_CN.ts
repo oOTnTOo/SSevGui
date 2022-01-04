@@ -11,19 +11,19 @@
  %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="164"/>
+        <location filename="BusView.cpp" line="165"/>
         <source>%1 error: %2</source>
         <translation>%1 错误：%2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="173"/>
+        <location filename="BusView.cpp" line="174"/>
         <source>%1 error: return 
 %2</source>
         <translation>%1 错误：返回 
 %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="180"/>
+        <location filename="BusView.cpp" line="181"/>
         <source>Unsupport protocal</source>
         <translation>不支持的协议</translation>
     </message>
@@ -256,54 +256,59 @@
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="82"/>
+        <location filename="MainWindow.ui" line="83"/>
         <source>&amp;Subscription</source>
         <oldsource>Subscription</oldsource>
         <translation>订阅(&amp;S)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="94"/>
+        <location filename="MainWindow.ui" line="95"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="99"/>
+        <location filename="MainWindow.ui" line="100"/>
         <source>Manually</source>
         <translation>手动添加</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="104"/>
-        <location filename="MainWindow.cpp" line="78"/>
+        <location filename="MainWindow.ui" line="105"/>
+        <location filename="MainWindow.cpp" line="80"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="109"/>
+        <location filename="MainWindow.ui" line="110"/>
         <source>Clear</source>
         <translation>全部清除</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="114"/>
+        <location filename="MainWindow.ui" line="115"/>
         <source>Manager</source>
         <translation>管理</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="119"/>
+        <location filename="MainWindow.ui" line="120"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="124"/>
+        <location filename="MainWindow.ui" line="125"/>
         <source>Lag test</source>
-        <translation type="unfinished"></translation>
+        <translation>检测延迟</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="78"/>
+        <location filename="MainWindow.ui" line="130"/>
+        <source>Lag test all</source>
+        <translation>全体测试延迟</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="80"/>
         <source>Disconnect</source>
         <translation>断开</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="232"/>
+        <location filename="MainWindow.cpp" line="241"/>
         <source>%1 updated</source>
         <translation>%1 更新完成</translation>
     </message>
@@ -321,13 +326,13 @@
     <name>StatusNotifier</name>
     <message>
         <location filename="statusnotifier.cpp" line="22"/>
-        <location filename="statusnotifier.cpp" line="93"/>
+        <location filename="statusnotifier.cpp" line="96"/>
         <source>Restore</source>
         <translation>显示</translation>
     </message>
     <message>
         <location filename="statusnotifier.cpp" line="22"/>
-        <location filename="statusnotifier.cpp" line="93"/>
+        <location filename="statusnotifier.cpp" line="96"/>
         <source>Minimise</source>
         <translation>最小化</translation>
     </message>

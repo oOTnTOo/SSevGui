@@ -30,7 +30,7 @@ StatusNotifier::StatusNotifier(MainWindow *w, bool startHiden, QObject *parent) 
 
 	serverList_.setTitle(tr("Server"));
 	systrayMenu.addMenu(&serverList_);
-	connect(BusView::inst(),&BusView::sig_modelItemChanged,this,&StatusNotifier::updateServerList);
+	connect(BusView::inst(),&BusView::sig_modelItemChanged,this,&StatusNotifier::createServerList);
 
 	systrayMenu.addMenu(w->subscriptionMenu());
 
@@ -40,7 +40,7 @@ StatusNotifier::StatusNotifier(MainWindow *w, bool startHiden, QObject *parent) 
 	systray.show();
 }
 
-void StatusNotifier::updateServerList() {
+void StatusNotifier::createServerList() {
 	const QMap<QString, QList<ConnectionItem*>>& its = BusView::inst()->connectionItems();
 	QMap<QString, QList<ConnectionItem*>>::const_iterator i = its.constBegin();
 	while(i!=its.constEnd()) {
@@ -53,8 +53,11 @@ void StatusNotifier::updateServerList() {
 		for(ConnectionItem* ci: i.value()) {
 			const SQProfile& s = ci->connection()->profile();
 			QString lag = s.latency < 1 ? tr("Unknown") : QString::number(s.latency);
-			ServerAction* sa = new ServerAction(QString("[%1] %2 (%3:%4)").arg(lag).arg(s.name).arg(s.serverAddress).arg(s.serverPort),m);
+			//ServerAction* sa = new ServerAction(QString("[%1] %2 (%3:%4)").arg(lag).arg(s.name).arg(s.serverAddress).arg(s.serverPort),m);
+			ServerAction* sa = new ServerAction(m);
+			sa->setText(s.name,s.serverAddress,s.serverPort,ci->data(4).toString());
 			connect(sa,&ServerAction::triggered,this,&StatusNotifier::serverMenuClicked);
+			connect(ci,&ConnectionItem::latencyChanged,sa,&ServerAction::onItemLatencyChanged);
 			sa->setData(QVariant::fromValue<ConnectionItem*>(ci));
 			m->addAction(sa);
 		}
@@ -129,10 +132,13 @@ void StatusNotifier::onCurrentItemChanged(const ConnectionItem* newItem) {
 
 
 
-ServerAction::ServerAction(QString text, QWidget* parent) : QAction(parent) {
-	setText(text);
+ServerAction::ServerAction(QWidget* parent) : QAction(parent) {
 	setCheckable(true);
 	connect(BusView::inst(),&BusView::sig_currentItemChanged,this,&ServerAction::onCurrentItemChanged);
+}
+
+void ServerAction::setText(const QString& name, const QString& address, quint16 port, QString lag) {
+	QAction::setText(QString("[%1] %2 (%3:%4)").arg(lag).arg(name).arg(address).arg(port));
 }
 
 void ServerAction::onCurrentItemChanged(const ConnectionItem* newItem) {
@@ -140,4 +146,13 @@ void ServerAction::onCurrentItemChanged(const ConnectionItem* newItem) {
 		setChecked(true);
 	else
 		setChecked(false);
+}
+
+void ServerAction::onItemLatencyChanged() {
+	ConnectionItem* ci = qobject_cast<ConnectionItem*>(sender());
+	if(nullptr == ci)
+		return;
+
+	const SQProfile& pr = ci->connection()->profile();
+	setText(pr.name,pr.serverAddress,pr.serverPort,ci->data(4).toString());
 }

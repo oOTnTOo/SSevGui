@@ -92,26 +92,26 @@ QVariant ConnectionItem::data(int column, int role) const
 
 QString ConnectionItem::convertLatencyToString(const int latency)
 {
-    QString latencyStr;
-    switch (latency) {
-    case SQProfile::LATENCY_TIMEOUT:
-        latencyStr = tr("Timeout");
-        break;
-    case SQProfile::LATENCY_ERROR:
-        latencyStr = tr("Error");
-        break;
-    case SQProfile::LATENCY_UNKNOWN:
-        latencyStr = tr("Unknown");
-        break;
-    default:
-        if (latency >= 1000) {
-            latencyStr = QString::number(static_cast<double>(latency) / 1000.0)
-                       + QStringLiteral(" ") + tr("s");
-        } else {
-            latencyStr = QString::number(latency) + QStringLiteral(" ") + tr("ms");
-        }
-    }
-    return latencyStr;
+	QString latencyStr;
+	switch (latency) {
+	case SQProfile::LATENCY_TIMEOUT:
+		latencyStr = tr("Timeout");
+		break;
+	case SQProfile::LATENCY_ERROR:
+		latencyStr = tr("Error");
+		break;
+	case SQProfile::LATENCY_UNKNOWN:
+		latencyStr = tr("Unknown");
+		break;
+	default:
+		if (latency >= 1000) {
+			latencyStr = QString::number(static_cast<double>(latency) / 1000.0)
+					   + QStringLiteral(" ") + tr("s");
+		} else {
+			latencyStr = QString::number(latency) + QStringLiteral(" ") + tr("ms");
+		}
+	}
+	return latencyStr;
 }
 
 QString ConnectionItem::convertBytesToHumanReadable(quint64 quot)

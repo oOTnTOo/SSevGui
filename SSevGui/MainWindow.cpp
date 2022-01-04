@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
 	ui(new Ui::MainWindow) {
 	ui->setupUi(this);
 
+	ui->tableServers->horizontalHeader()->resizeSection(0,300);
+
 	sntfier_ = new StatusNotifier(this,false,this);
 
 	model_ = new ConnectionTableModel(ui->tableServers);
@@ -90,6 +92,7 @@ void MainWindow::showEvent(QShowEvent* event) {
 }
 
 void MainWindow::closeEvent(QCloseEvent *event){
+	BusView::inst()->setting().saveAllProfile(*model_);
 #ifndef NDEBUG
 	QMainWindow::closeEvent(event);
 	BusView::inst()->stopProxy();
@@ -149,6 +152,7 @@ void MainWindow::on_actionUpdate_triggered() {
 }
 
 void MainWindow::on_actionQuit_triggered() {
+	BusView::inst()->setting().saveAllProfile(*model_);
 	qApp->quit();
 }
 
@@ -158,8 +162,13 @@ void MainWindow::on_actionLagTest_triggered() {
 		return;
 	}
 
-	ConnectionItem* conn = model_->getItem(proxyModel_->mapToSource(idx).row());
+	int r = proxyModel_->mapToSource(idx).row();
+	ConnectionItem* conn = model_->getItem(r);
 	conn->testLatency();
+}
+
+void MainWindow::on_actionLagTestAll_triggered() {
+	model_->testAllLatency();
 }
 
 void MainWindow::on_menuConnection_aboutToShow() {

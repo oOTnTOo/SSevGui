@@ -5,7 +5,6 @@
 #include <QDataStream>
 #include <QDateTime>
 
-
 struct AirportInfo {
 	QString url_;		// 订阅地址
 	QString name_;		// 名称
@@ -43,6 +42,8 @@ struct SQProfile
 	static const int LATENCY_TIMEOUT = -1;
 	static const int LATENCY_ERROR = -2;
 	static const int LATENCY_UNKNOWN = -3;
+	static const int DEFAULT_PORT = 1088;
+	static const int DEFAULT_TIMEOUT = 5000;
 
 	QString plugin;
 	QString pluginArg;

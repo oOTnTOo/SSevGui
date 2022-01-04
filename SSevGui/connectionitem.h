@@ -37,17 +37,17 @@ public:
     void testLatency();
 
 signals:
-    void message(const QString&);
-    void stateChanged(bool);
-    void dataUsageChanged(const quint64 &current, const quint64 &total);
-    void latencyChanged();
+	void message(const QString&);
+	void stateChanged(bool);
+	void dataUsageChanged(const quint64 &current, const quint64 &total);
+	void latencyChanged();
 
 private:
-    Connection *con;
+	Connection *con;
 
-    static QString convertLatencyToString(const int latency);
-    static QString convertBytesToHumanReadable(quint64 bytes);
-    static const QStringList bytesUnits;
+	static QString convertLatencyToString(const int latency);
+	static QString convertBytesToHumanReadable(quint64 bytes);
+	static const QStringList bytesUnits;
 
 private slots:
     void onConnectionStateChanged(bool running);

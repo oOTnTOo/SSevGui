@@ -143,7 +143,7 @@ bool ConnectionTableModel::appendProfiles(const QList<SQProfile>& pros) {
 void ConnectionTableModel::disconnectConnectionsAt(const QString &addr, quint16 port)
 {
     bool anyAddr = (addr.compare("0.0.0.0") == 0);
-    for (auto &i : items) {
+	for (ConnectionItem* i : items) {
 		Connection *con = i->connection();
 		if (con->isRunning() && con->profile().localPort == port) {
 			if ((con->profile().localAddress == addr) ||
@@ -157,7 +157,7 @@ void ConnectionTableModel::disconnectConnectionsAt(const QString &addr, quint16 
 
 void ConnectionTableModel::testAllLatency()
 {
-    for (auto &i : items) {
+	for (ConnectionItem* i : items) {
         i->testLatency();
 	}
 }
