@@ -206,59 +206,84 @@
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="83"/>
+        <location filename="MainWindow.ui" line="86"/>
         <source>&amp;Subscription</source>
         <oldsource>Subscription</oldsource>
         <translation>订阅(&amp;S)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="95"/>
+        <location filename="MainWindow.ui" line="98"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="100"/>
+        <location filename="MainWindow.ui" line="103"/>
         <source>Manually</source>
         <translation>手动添加</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="105"/>
-        <location filename="MainWindow.cpp" line="80"/>
+        <location filename="MainWindow.ui" line="108"/>
+        <location filename="MainWindow.cpp" line="81"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="110"/>
+        <location filename="MainWindow.ui" line="113"/>
         <source>Clear</source>
         <translation>全部清除</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="115"/>
+        <location filename="MainWindow.ui" line="118"/>
         <source>Manager</source>
         <translation>管理</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="120"/>
+        <location filename="MainWindow.ui" line="123"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="125"/>
+        <location filename="MainWindow.ui" line="128"/>
         <source>Lag test</source>
         <translation>检测延迟</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="130"/>
+        <location filename="MainWindow.ui" line="133"/>
         <source>Lag test all</source>
         <translation>全体测试延迟</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="80"/>
+        <location filename="MainWindow.ui" line="138"/>
+        <source>Share ss url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="143"/>
+        <source>Share by QR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="148"/>
+        <source>Share url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="153"/>
+        <source>Share server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="158"/>
+        <source>Share subscribe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="81"/>
         <source>Disconnect</source>
         <translation>断开</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="241"/>
+        <location filename="MainWindow.cpp" line="250"/>
         <source>%1 updated</source>
         <translation>%1 更新完成</translation>
     </message>

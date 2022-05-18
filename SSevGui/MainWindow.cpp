@@ -2,6 +2,7 @@
 #include "ConnectionInfoWgt.h"
 #include "SubscriptionManagerWgt.h"
 #include "BusView.h"
+#include "Tools.h"
 #include <QLocalSocket>
 #include <QDebug>
 #include <QMessageBox>
@@ -171,6 +172,18 @@ void MainWindow::on_actionLagTestAll_triggered() {
 	model_->testAllLatency();
 }
 
+void MainWindow::on_actionShareServer_triggered() {
+	QModelIndex idx = ui->tableServers->currentIndex();
+	if(!idx.isValid())
+		return;
+
+	idx = proxyModel_->mapToSource(idx);
+
+	SQProfile pro = model_->getItem(idx.row())->connection()->profile();
+
+	qDebug() << Tools::makeServerShareUrl(pro);
+}
+
 void MainWindow::on_menuConnection_aboutToShow() {
 	QModelIndex idx = ui->tableServers->currentIndex();
 	if(!idx.isValid())
@@ -180,10 +193,6 @@ void MainWindow::on_menuConnection_aboutToShow() {
 }
 
 void MainWindow::on_tableServers_customContextMenuRequested(const QPoint& pos) {
-	QModelIndex idx = proxyModel_->mapToSource(ui->tableServers->indexAt(pos));
-	if(!idx.isValid())
-		return;
-
 	ui->menuConnection->popup(ui->tableServers->viewport()->mapToGlobal(pos));
 }
 

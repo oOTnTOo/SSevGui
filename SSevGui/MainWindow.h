@@ -53,6 +53,7 @@ private slots:
 	void on_actionQuit_triggered();
 	void on_actionLagTest_triggered();
 	void on_actionLagTestAll_triggered();
+	void on_actionShareServer_triggered();
 
 	void on_menuConnection_aboutToShow();
 

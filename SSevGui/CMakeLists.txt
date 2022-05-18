@@ -40,6 +40,7 @@ add_executable(SSevGui
   DataDefine.cpp
   ConnectionTest.cpp
   SSevGUI.qrc
+  Tools.cpp
   ${QM_FILES}
 )
 

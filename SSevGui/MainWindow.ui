@@ -77,6 +77,9 @@
     <addaction name="separator"/>
     <addaction name="menuAdd"/>
     <addaction name="actionClear"/>
+    <addaction name="separator"/>
+    <addaction name="actionShareServer"/>
+    <addaction name="actionShare_subscribe_2"/>
    </widget>
    <widget class="QMenu" name="menuSubscription">
     <property name="title">
@@ -128,6 +131,31 @@
   <action name="actionLagTestAll">
    <property name="text">
     <string>Lag test all</string>
+   </property>
+  </action>
+  <action name="actionShareUrl">
+   <property name="text">
+    <string>Share ss url</string>
+   </property>
+  </action>
+  <action name="actionShareQR">
+   <property name="text">
+    <string>Share by QR</string>
+   </property>
+  </action>
+  <action name="actionShare_url">
+   <property name="text">
+    <string>Share url</string>
+   </property>
+  </action>
+  <action name="actionShareServer">
+   <property name="text">
+    <string>Share server</string>
+   </property>
+  </action>
+  <action name="actionShare_subscribe_2">
+   <property name="text">
+    <string>Share subscribe</string>
    </property>
   </action>
  </widget>
