@@ -14,7 +14,7 @@ SQProfile::SQProfile()
 	debug = false;
 	serverPort = 8388;
 	localPort = 1080;
-	name = QObject::tr("Unnamed Profile");
+	remake = QObject::tr("Unnamed Profile");
 	localAddress = QString("127.0.0.1");
 	method = QString("RC4-MD5");
 	timeout = 600;
@@ -67,13 +67,13 @@ SQProfile::SQProfile(const QString &uri)
 
 QDataStream& operator << (QDataStream &out, const SQProfile &p)
 {
-	out << p.autoStart << p.debug << p.serverPort << p.localPort << p.name << p.serverAddress << p.localAddress << p.method << p.password << p.timeout << p.latency << p.currentUsage << p.totalUsage << p.lastTime << p.nextResetDate << p.httpMode << p.plugin << p.pluginArg << p.pluginOpt << p.airportInfo_;
+	out << p.autoStart << p.debug << p.serverPort << p.localPort << p.remake << p.serverAddress << p.localAddress << p.method << p.password << p.timeout << p.latency << p.currentUsage << p.totalUsage << p.lastTime << p.nextResetDate << p.httpMode << p.plugin << p.pluginArg << p.pluginOpt << p.airportInfo_;
 	return out;
 }
 
 QDataStream& operator >> (QDataStream &in, SQProfile &p)
 {
-	in >> p.autoStart >> p.debug >> p.serverPort >> p.localPort >> p.name >> p.serverAddress >> p.localAddress >> p.method >> p.password >> p.timeout >> p.latency >> p.currentUsage >> p.totalUsage >> p.lastTime >> p.nextResetDate >> p.httpMode >> p.plugin >> p.pluginArg >> p.pluginOpt >> p.airportInfo_;
+	in >> p.autoStart >> p.debug >> p.serverPort >> p.localPort >> p.remake >> p.serverAddress >> p.localAddress >> p.method >> p.password >> p.timeout >> p.latency >> p.currentUsage >> p.totalUsage >> p.lastTime >> p.nextResetDate >> p.httpMode >> p.plugin >> p.pluginArg >> p.pluginOpt >> p.airportInfo_;
 	return in;
 }
 

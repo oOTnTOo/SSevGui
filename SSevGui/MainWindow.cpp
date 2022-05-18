@@ -3,6 +3,7 @@
 #include "SubscriptionManagerWgt.h"
 #include "BusView.h"
 #include "Tools.h"
+#include "ShareDialog.h"
 #include <QLocalSocket>
 #include <QDebug>
 #include <QMessageBox>
@@ -174,14 +175,15 @@ void MainWindow::on_actionLagTestAll_triggered() {
 
 void MainWindow::on_actionShareServer_triggered() {
 	QModelIndex idx = ui->tableServers->currentIndex();
-	if(!idx.isValid())
-		return;
+	SQProfile pro;
+	if(idx.isValid()) {
+		idx = proxyModel_->mapToSource(idx);
+		pro = model_->getItem(idx.row())->connection()->profile();
+	}
 
-	idx = proxyModel_->mapToSource(idx);
-
-	SQProfile pro = model_->getItem(idx.row())->connection()->profile();
-
-	qDebug() << Tools::makeServerShareUrl(pro);
+	ShareDialog* sd = new ShareDialog;
+	sd->showServerConfig(pro);
+	sd->show();
 }
 
 void MainWindow::on_menuConnection_aboutToShow() {

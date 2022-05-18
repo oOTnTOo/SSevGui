@@ -35,7 +35,7 @@ QVariant ConnectionItem::data(int column, int role) const
     if (role == Qt::DisplayRole || role == Qt::EditRole) {
         switch (column) {
         case 0://name
-			return QVariant(con->profile().name);
+			return QVariant(con->profile().remake);
         case 1://server
 			return QVariant(con->profile().serverAddress);
 		case 2:// airport

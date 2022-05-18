@@ -35,7 +35,7 @@ const SQProfile& Connection::profile() const
 
 const QString& Connection::name() const
 {
-	return profile_.name;
+	return profile_.remake;
 }
 
 bool Connection::isValid() const

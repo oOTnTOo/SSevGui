@@ -4,26 +4,26 @@
 <context>
     <name>BusView</name>
     <message>
-        <location filename="BusView.cpp" line="128"/>
+        <location filename="BusView.cpp" line="132"/>
         <source>%1 Error:
  %2</source>
         <translation>%1 错误：
  %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="169"/>
+        <location filename="BusView.cpp" line="173"/>
         <source>%1 error: %2</source>
         <translation>%1 错误：%2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="178"/>
+        <location filename="BusView.cpp" line="182"/>
         <source>%1 error: return 
 %2</source>
         <translation>%1 错误：返回 
 %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="185"/>
+        <location filename="BusView.cpp" line="189"/>
         <source>Unsupport protocal</source>
         <translation>不支持的协议</translation>
     </message>
@@ -223,7 +223,7 @@
     </message>
     <message>
         <location filename="MainWindow.ui" line="108"/>
-        <location filename="MainWindow.cpp" line="81"/>
+        <location filename="MainWindow.cpp" line="82"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
@@ -278,12 +278,12 @@
         <translation>分享订阅地址</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="81"/>
+        <location filename="MainWindow.cpp" line="82"/>
         <source>Disconnect</source>
         <translation>断开</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="250"/>
+        <location filename="MainWindow.cpp" line="252"/>
         <source>%1 updated</source>
         <translation>%1 更新完成</translation>
     </message>
@@ -305,9 +305,9 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ShareDialog.ui" line="89"/>
+        <location filename="ShareDialog.ui" line="74"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>复制URL</translation>
     </message>
 </context>
 <context>

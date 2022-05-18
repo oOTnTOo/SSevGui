@@ -9,9 +9,13 @@ ConnectionTableModel::ConnectionTableModel(QObject *parent) :
 ConnectionTableModel::~ConnectionTableModel()
 {}
 
-const QMap<QString, QList<ConnectionItem*> >& ConnectionTableModel::connectionItems() const {
+const QMap<QString, QList<ConnectionItem*> >& ConnectionTableModel::connectionItemsWithAir() const {
 	//const QMap<QString, QList<ConnectionItem*> >* t = &mapAirItems_;
 	return mapAirItems_;
+}
+
+const QList<ConnectionItem*>& ConnectionTableModel::connectionItems() const {
+	return items;
 }
 
 ConnectionItem *ConnectionTableModel::getItem(const int &row) const

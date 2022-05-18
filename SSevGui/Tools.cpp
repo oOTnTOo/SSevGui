@@ -27,8 +27,8 @@ QString Tools::makeServerShareUrl(const SQProfile profile) {
 				.toUtf8();
 	}
 
-	if(!profile.name.isEmpty()) {
-		ssurl += "#" + profile.name.toUtf8().toPercentEncoding();
+	if(!profile.remake.isEmpty()) {
+		ssurl += "#" + profile.remake.toUtf8().toPercentEncoding();
 	}
 
 	return "ss://" + ssurl;

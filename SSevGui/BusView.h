@@ -32,8 +32,8 @@ public:
 	 * @brief 获取服务器信息列表
 	 * @return 返回服务器列表，并归档，注意，不可修改，所有服务器信息的改动需通过model
 	 */
-	const QMap<QString, QList<ConnectionItem*> >& connectionItems() const;
-
+	const QMap<QString, QList<ConnectionItem*> >& connectionItemsWithAir() const;
+	const QList<ConnectionItem*>& connectionItems() const;
 	Settings& setting();
 	AirportInfo airportInfo(QString airUrl) const;
 	void modifyAirUrlInMap(const QString& newUrl, const QString& oldUrl);

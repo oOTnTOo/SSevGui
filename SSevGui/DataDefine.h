@@ -26,7 +26,7 @@ struct SQProfile
 	bool debug;
 	quint16 serverPort;
 	quint16 localPort;
-	QString name;
+	QString remake;
 	QString serverAddress;
 	QString localAddress;
 	QString method;
@@ -50,6 +50,18 @@ struct SQProfile
 	QString pluginOpt;
 
 	AirportInfo airportInfo_;
+
+	bool operator ==(const SQProfile& other){
+		return serverAddress==other.serverAddress
+				&& serverPort==other.serverPort
+				&& method == other.method
+				&& password == other.password
+				&& remake == other.remake;
+	}
+
+	bool isVaild() {
+		return !serverAddress.isEmpty();
+	}
 };
 Q_DECLARE_METATYPE(SQProfile)
 

@@ -31,7 +31,8 @@ public:
     explicit ConnectionTableModel(QObject *parent = nullptr);
     ~ConnectionTableModel();
 
-	const QMap<QString, QList<ConnectionItem*> >& connectionItems() const;
+	const QMap<QString, QList<ConnectionItem*> >& connectionItemsWithAir() const;
+	const QList<ConnectionItem*>& connectionItems() const;
     ConnectionItem *getItem(const int &row) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;

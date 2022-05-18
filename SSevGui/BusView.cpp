@@ -89,7 +89,11 @@ void BusView::updateAllAirport() {
 	}
 }
 
-const QMap<QString, QList<ConnectionItem*> >& BusView::connectionItems() const{
+const QMap<QString, QList<ConnectionItem*> >& BusView::connectionItemsWithAir() const{
+	return model_->connectionItemsWithAir();
+}
+
+const QList<ConnectionItem*>& BusView::connectionItems() const {
 	return model_->connectionItems();
 }
 
@@ -143,7 +147,7 @@ bool BusView::getSSDParseRes(QByteArray bytes, QList<SQProfile>& prfs, AirportIn
 		pro.serverAddress = o.value("server").toString();
 		pro.serverPort = o.value("port").toInt();
 		pro.method = o.value("encryption").toString();
-		pro.name = o.value("remarks").toString();
+		pro.remake = o.value("remarks").toString();
 		pro.password = o.value("password").toString();
 		pro.plugin = o.value("plugin").toString().replace("simple-obfs","obfs-local");
 		pro.pluginOpt = o.value("plugin_options").toString();

@@ -32,7 +32,7 @@ ConnectionInfoWgt::~ConnectionInfoWgt()
 }
 
 void ConnectionInfoWgt::setProfile(SQProfile profile) {
-	ui->editName->setText(profile.name);
+	ui->editName->setText(profile.remake);
 	ui->editRemoteAddr->setText(profile.serverAddress);
 	ui->editRemotePort->setText(QString::number(profile.serverPort));
 	ui->editPwd->setText(profile.password);
@@ -50,7 +50,7 @@ SQProfile ConnectionInfoWgt::profile() {
 
 	sqp.autoStart = false;
 	sqp.debug = false;
-	sqp.name = ui->editName->text();
+	sqp.remake = ui->editName->text();
 	sqp.serverAddress = ui->editRemoteAddr->text();
 	sqp.serverPort = ui->editRemotePort->text().toInt();
 	sqp.password = ui->editPwd->text();

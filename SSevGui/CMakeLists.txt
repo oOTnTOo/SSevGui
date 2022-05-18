@@ -41,6 +41,7 @@ add_executable(SSevGui
   ConnectionTest.cpp
   SSevGUI.qrc
   Tools.cpp
+  ShareDialog.cpp
   ${QM_FILES}
 )
 

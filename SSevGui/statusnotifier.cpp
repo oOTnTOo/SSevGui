@@ -41,7 +41,7 @@ StatusNotifier::StatusNotifier(MainWindow *w, bool startHiden, QObject *parent) 
 }
 
 void StatusNotifier::createServerList() {
-	const QMap<QString, QList<ConnectionItem*>>& its = BusView::inst()->connectionItems();
+	const QMap<QString, QList<ConnectionItem*>>& its = BusView::inst()->connectionItemsWithAir();
 	QMap<QString, QList<ConnectionItem*>>::const_iterator i = its.constBegin();
 	while(i!=its.constEnd()) {
 		QMenu* m = new QMenu(&serverList_);
@@ -55,7 +55,7 @@ void StatusNotifier::createServerList() {
 			QString lag = s.latency < 1 ? tr("Unknown") : QString::number(s.latency);
 			//ServerAction* sa = new ServerAction(QString("[%1] %2 (%3:%4)").arg(lag).arg(s.name).arg(s.serverAddress).arg(s.serverPort),m);
 			ServerAction* sa = new ServerAction(m);
-			sa->setText(s.name,s.serverAddress,s.serverPort,ci->data(4).toString());
+			sa->setText(s.remake,s.serverAddress,s.serverPort,ci->data(4).toString());
 			connect(sa,&ServerAction::triggered,this,&StatusNotifier::serverMenuClicked);
 			connect(ci,&ConnectionItem::latencyChanged,sa,&ServerAction::onItemLatencyChanged);
 			sa->setData(QVariant::fromValue<ConnectionItem*>(ci));
@@ -154,5 +154,5 @@ void ServerAction::onItemLatencyChanged() {
 		return;
 
 	const SQProfile& pr = ci->connection()->profile();
-	setText(pr.name,pr.serverAddress,pr.serverPort,ci->data(4).toString());
+	setText(pr.remake,pr.serverAddress,pr.serverPort,ci->data(4).toString());
 }
