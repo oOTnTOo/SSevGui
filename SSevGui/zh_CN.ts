@@ -61,11 +61,6 @@
         <translation>本地地址</translation>
     </message>
     <message>
-        <location filename="ConnectionInfoWgt.ui" line="67"/>
-        <source>0.0.0.0</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="ConnectionInfoWgt.ui" line="74"/>
         <source>Local Port</source>
         <translation>本地端口</translation>
@@ -76,67 +71,22 @@
         <translation>连接方式</translation>
     </message>
     <message>
-        <location filename="ConnectionInfoWgt.ui" line="118"/>
-        <source>SOCKS5</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ConnectionInfoWgt.ui" line="131"/>
-        <source>HTTP(S)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="ConnectionInfoWgt.ui" line="141"/>
         <source>Encryption Method</source>
         <translation>加密方式</translation>
     </message>
     <message>
-        <location filename="ConnectionInfoWgt.ui" line="149"/>
-        <source>rc4-md5</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ConnectionInfoWgt.ui" line="154"/>
-        <source>bf-cfb</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ConnectionInfoWgt.ui" line="159"/>
-        <source>chacha20-ietf-poly1305</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ConnectionInfoWgt.ui" line="164"/>
-        <source>xchacha20-ietf-poly1305</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ConnectionInfoWgt.ui" line="169"/>
-        <source>salsa20</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ConnectionInfoWgt.ui" line="174"/>
-        <source>chacha20</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ConnectionInfoWgt.ui" line="179"/>
-        <source>chacha20-ietf</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ConnectionInfoWgt.ui" line="194"/>
+        <location filename="ConnectionInfoWgt.ui" line="197"/>
         <source>Plugin</source>
         <translation>插件</translation>
     </message>
     <message>
-        <location filename="ConnectionInfoWgt.ui" line="214"/>
+        <location filename="ConnectionInfoWgt.ui" line="217"/>
         <source>Plugin options</source>
         <translation>插件选项</translation>
     </message>
     <message>
-        <location filename="ConnectionInfoWgt.ui" line="224"/>
+        <location filename="ConnectionInfoWgt.ui" line="227"/>
         <source>Plugin arguments</source>
         <translation>插件参数</translation>
     </message>

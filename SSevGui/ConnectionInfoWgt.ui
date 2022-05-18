@@ -64,7 +64,7 @@
    <item row="4" column="1">
     <widget class="QLineEdit" name="editLocalAddr">
      <property name="text">
-      <string>0.0.0.0</string>
+      <string notr="true">0.0.0.0</string>
      </property>
     </widget>
    </item>
@@ -115,7 +115,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>SOCKS5</string>
+         <string notr="true">SOCKS5</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -128,7 +128,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>HTTP(S)</string>
+         <string notr="true">HTTP(S)</string>
         </property>
        </widget>
       </item>
@@ -144,39 +144,42 @@
    </item>
    <item row="7" column="1">
     <widget class="QComboBox" name="comboEncryMethod">
+     <property name="currentText">
+      <string notr="true">rc4-md5</string>
+     </property>
      <item>
       <property name="text">
-       <string>rc4-md5</string>
+       <string notr="true">rc4-md5</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>bf-cfb</string>
+       <string notr="true">bf-cfb</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>chacha20-ietf-poly1305</string>
+       <string notr="true">chacha20-ietf-poly1305</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>xchacha20-ietf-poly1305</string>
+       <string notr="true">xchacha20-ietf-poly1305</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>salsa20</string>
+       <string notr="true">salsa20</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>chacha20</string>
+       <string notr="true">chacha20</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>chacha20-ietf</string>
+       <string notr="true">chacha20-ietf</string>
       </property>
      </item>
     </widget>
