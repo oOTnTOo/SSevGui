@@ -51,7 +51,7 @@ bool BusView::startProxy(ConnectionItem* connItem)
 		emit sig_currentItemChanged(nullptr);
 	}
 	if(!QFile::exists(qApp->applicationDirPath()+"/ss-local")) {
-		emit sig_notifyText("ss-local not found, copy ss-local in program dir");
+		emit sig_notifyText("ss-local not found, copy ss-local in program dir, or create a link");
 		return false;
 	}
 	proc_.start(qApp->applicationDirPath()+"/ss-local "+sl.join(" "));
@@ -95,6 +95,10 @@ const QMap<QString, QList<ConnectionItem*> >& BusView::connectionItems() const{
 
 Settings& BusView::setting() {
 	return settings_;
+}
+
+void BusView::modifyAirUrlInMap(const QString& newUrl, const QString& oldUrl) {
+	model_->modifyAirUrl(newUrl,oldUrl);
 }
 
 BusView::BusView(QObject *parent) : QObject(parent) {

@@ -155,6 +155,11 @@ void ConnectionTableModel::disconnectConnectionsAt(const QString &addr, quint16 
 	}
 }
 
+void ConnectionTableModel::modifyAirUrl(const QString& newUrl, const QString& oldUrl) {
+	mapAirItems_[newUrl] = qMove(mapAirItems_[oldUrl]);
+	mapAirItems_.remove(oldUrl);
+}
+
 void ConnectionTableModel::testAllLatency()
 {
 	for (ConnectionItem* i : items) {

@@ -36,6 +36,7 @@ public:
 
 	Settings& setting();
 	AirportInfo airportInfo(QString airUrl) const;
+	void modifyAirUrlInMap(const QString& newUrl, const QString& oldUrl);
 
 private:
 	explicit BusView(QObject *parent = nullptr);

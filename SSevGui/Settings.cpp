@@ -57,8 +57,8 @@ void Settings::readAirInfosIntoList(QListWidget* listWgt) {
 }
 
 void Settings::saveAirInfos(const QListWidget* listWgt) {
-	if(listWgt->count() < 1)
-		settings_.remove("Airport");
+//	if(listWgt->count() < 1)
+	settings_.remove("Airport");
 	settings_.beginWriteArray("Airport");
 	for(int i = 0; i < listWgt->count(); ++i){
 		settings_.setArrayIndex(i);

@@ -4,26 +4,26 @@
 <context>
     <name>BusView</name>
     <message>
-        <location filename="BusView.cpp" line="124"/>
+        <location filename="BusView.cpp" line="128"/>
         <source>%1 Error:
  %2</source>
         <translation>%1 错误：
  %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="165"/>
+        <location filename="BusView.cpp" line="169"/>
         <source>%1 error: %2</source>
         <translation>%1 错误：%2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="174"/>
+        <location filename="BusView.cpp" line="178"/>
         <source>%1 error: return 
 %2</source>
         <translation>%1 错误：返回 
 %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="181"/>
+        <location filename="BusView.cpp" line="185"/>
         <source>Unsupport protocal</source>
         <translation>不支持的协议</translation>
     </message>
@@ -270,12 +270,12 @@
     <message>
         <location filename="MainWindow.ui" line="153"/>
         <source>Share server</source>
-        <translation type="unfinished"></translation>
+        <translation>分享服务器配置</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="158"/>
         <source>Share subscribe</source>
-        <translation type="unfinished"></translation>
+        <translation>分享订阅地址</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="81"/>
@@ -295,6 +295,19 @@
         <location filename="sqprofile.cpp" line="9"/>
         <source>Unnamed Profile</source>
         <translation>未命名配置</translation>
+    </message>
+</context>
+<context>
+    <name>ShareDialog</name>
+    <message>
+        <location filename="ShareDialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ShareDialog.ui" line="89"/>
+        <source>Copy</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

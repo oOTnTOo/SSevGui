@@ -45,6 +45,7 @@ void SubscriptionManagerWgt::on_btnSave_clicked() {
 	ai.url_ = ui->editAirLink->text();
 	ui->listAir->currentItem()->setData(Qt::UserRole+1,QVariant::fromValue<AirportInfo>(ai));
 
+	BusView::inst()->modifyAirUrlInMap(ai.url_, before.url_); // 更新Model里Map中的订阅Url缓存
 	BusView::inst()->setting().saveAirInfos(ui->listAir);
 }
 
