@@ -17,13 +17,15 @@ public:
 	explicit ShareDialog(QWidget *parent = nullptr);
 	~ShareDialog();
 
-	void showServerConfig(SQProfile& curProfile);
+	void showServerPage(SQProfile& curProfile);
+	void showAirPage();
 
 private:
 	Ui::ShareDialog *ui;
 
 private slots:
-	void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+	void onServersCurrentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+	void onAirsCurrentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 	void on_btnCopy_clicked();
 };
 

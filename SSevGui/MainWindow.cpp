@@ -182,7 +182,13 @@ void MainWindow::on_actionShareServer_triggered() {
 	}
 
 	ShareDialog* sd = new ShareDialog;
-	sd->showServerConfig(pro);
+	sd->showServerPage(pro);
+	sd->show();
+}
+
+void MainWindow::on_actionShareAir_triggered() {
+	ShareDialog* sd = new ShareDialog;
+	sd->showAirPage();
 	sd->show();
 }
 

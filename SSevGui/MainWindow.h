@@ -54,6 +54,7 @@ private slots:
 	void on_actionLagTest_triggered();
 	void on_actionLagTestAll_triggered();
 	void on_actionShareServer_triggered();
+	void on_actionShareAir_triggered();
 
 	void on_menuConnection_aboutToShow();
 

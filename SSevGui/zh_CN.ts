@@ -283,7 +283,7 @@
         <translation>断开</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="252"/>
+        <location filename="MainWindow.cpp" line="258"/>
         <source>%1 updated</source>
         <translation>%1 更新完成</translation>
     </message>
@@ -310,9 +310,14 @@
         <translation>复制URL</translation>
     </message>
     <message>
-        <location filename="ShareDialog.cpp" line="23"/>
+        <location filename="ShareDialog.cpp" line="24"/>
         <source>Share server config</source>
         <translation>分享服务器配置</translation>
+    </message>
+    <message>
+        <location filename="ShareDialog.cpp" line="41"/>
+        <source>Share subscribe config</source>
+        <translation>分享订阅地址</translation>
     </message>
 </context>
 <context>

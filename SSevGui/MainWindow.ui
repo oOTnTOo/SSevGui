@@ -79,7 +79,7 @@
     <addaction name="actionClear"/>
     <addaction name="separator"/>
     <addaction name="actionShareServer"/>
-    <addaction name="actionShare_subscribe_2"/>
+    <addaction name="actionShareAir"/>
    </widget>
    <widget class="QMenu" name="menuSubscription">
     <property name="title">
@@ -153,7 +153,7 @@
     <string>Share server</string>
    </property>
   </action>
-  <action name="actionShare_subscribe_2">
+  <action name="actionShareAir">
    <property name="text">
     <string>Share subscribe</string>
    </property>
