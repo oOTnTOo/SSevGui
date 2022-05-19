@@ -20,6 +20,7 @@ ShareDialog::~ShareDialog()
 }
 
 void ShareDialog::showServerConfig(SQProfile& curProfile) {
+	setWindowTitle(tr("Share server config"));
 	QListWidgetItem* cur=nullptr;
 	for(ConnectionItem* ci : BusView::inst()->connectionItems()) {
 		SQProfile p = ci->connection()->profile();
@@ -35,8 +36,11 @@ void ShareDialog::showServerConfig(SQProfile& curProfile) {
 }
 
 void ShareDialog::on_listWidget_currentItemChanged(QListWidgetItem* current, QListWidgetItem* previous) {
-	ui->editUrl->setText(current->data(Qt::UserRole+1).toString());
+	QString urlText = current->data(Qt::UserRole+1).toString();
+	ui->editUrl->setText(urlText);
 	ui->editUrl->setCursorPosition(0);
+
+	ui->labelQR->setPixmap(QPixmap::fromImage(Tools::makeQR(urlText)));
 }
 
 void ShareDialog::on_btnCopy_clicked() {

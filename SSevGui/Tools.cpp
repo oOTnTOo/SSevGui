@@ -1,4 +1,5 @@
 #include "Tools.h"
+#include "3rd/qzxing/QZXing"
 
 QString Tools::makeServerShareUrl(const SQProfile profile) {
 	QByteArray ssurl;
@@ -32,4 +33,8 @@ QString Tools::makeServerShareUrl(const SQProfile profile) {
 	}
 
 	return "ss://" + ssurl;
+}
+
+QImage Tools::makeQR(QString content) {
+	return QZXing::encodeData(content);
 }

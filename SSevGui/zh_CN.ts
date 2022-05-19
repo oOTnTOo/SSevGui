@@ -309,6 +309,11 @@
         <source>Copy</source>
         <translation>复制URL</translation>
     </message>
+    <message>
+        <location filename="ShareDialog.cpp" line="23"/>
+        <source>Share server config</source>
+        <translation>分享服务器配置</translation>
+    </message>
 </context>
 <context>
     <name>StatusNotifier</name>

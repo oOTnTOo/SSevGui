@@ -7,6 +7,7 @@
 class Tools {
 public:
 	static QString makeServerShareUrl(const SQProfile profile);
+	static QImage makeQR(QString content);
 };
 
 #endif // TOOLS_H
