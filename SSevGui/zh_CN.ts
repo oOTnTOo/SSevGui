@@ -4,26 +4,26 @@
 <context>
     <name>BusView</name>
     <message>
-        <location filename="BusView.cpp" line="132"/>
+        <location filename="BusView.cpp" line="129"/>
         <source>%1 Error:
  %2</source>
         <translation>%1 错误：
  %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="173"/>
+        <location filename="BusView.cpp" line="170"/>
         <source>%1 error: %2</source>
         <translation>%1 错误：%2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="182"/>
+        <location filename="BusView.cpp" line="179"/>
         <source>%1 error: return 
 %2</source>
         <translation>%1 错误：返回 
 %2</translation>
     </message>
     <message>
-        <location filename="BusView.cpp" line="189"/>
+        <location filename="BusView.cpp" line="186"/>
         <source>Unsupport protocal</source>
         <translation>不支持的协议</translation>
     </message>
@@ -323,39 +323,44 @@
 <context>
     <name>StatusNotifier</name>
     <message>
-        <location filename="statusnotifier.cpp" line="22"/>
-        <location filename="statusnotifier.cpp" line="96"/>
+        <location filename="statusnotifier.cpp" line="25"/>
+        <location filename="statusnotifier.cpp" line="101"/>
         <source>Restore</source>
         <translation>显示</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="22"/>
-        <location filename="statusnotifier.cpp" line="96"/>
+        <location filename="statusnotifier.cpp" line="25"/>
+        <location filename="statusnotifier.cpp" line="101"/>
         <source>Minimise</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="27"/>
+        <location filename="statusnotifier.cpp" line="30"/>
         <source>Stop proxy</source>
         <translation>停止代理</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="31"/>
+        <location filename="statusnotifier.cpp" line="34"/>
         <source>Server</source>
         <translation>服务器</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="38"/>
+        <location filename="statusnotifier.cpp" line="35"/>
+        <source>Import SS url from clipboard</source>
+        <translation>从剪贴板导入SS链接</translation>
+    </message>
+    <message>
+        <location filename="statusnotifier.cpp" line="43"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="49"/>
+        <location filename="statusnotifier.cpp" line="54"/>
         <source>[%1/%2 G %3 day] %4</source>
         <translation>[%1/%2 G %3天] %4</translation>
     </message>
     <message>
-        <location filename="statusnotifier.cpp" line="55"/>
+        <location filename="statusnotifier.cpp" line="60"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>

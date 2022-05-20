@@ -2,6 +2,7 @@
 #include "sqprofile.h"
 #include "Settings.h"
 #include "sqprofile.h"
+#include "Tools.h"
 
 #include <QFile>
 #include <QApplication>
@@ -120,11 +121,7 @@ BusView::~BusView() {
 }
 
 bool BusView::getSSDParseRes(QByteArray bytes, QList<SQProfile>& prfs, AirportInfo& ai) {
-	bytes.replace('-', '+').replace('_', '/');
-	int mod4 = bytes.count() % 4;
-	if(mod4 > 0){
-		bytes.append(4-mod4,'=');
-	}
+	bytes = Tools::safeTobase64(bytes);
 
 	QJsonParseError err;
 	QJsonObject rootObj = QJsonDocument::fromJson(QByteArray::fromBase64(bytes),&err).object();

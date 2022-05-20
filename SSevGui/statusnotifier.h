@@ -44,15 +44,16 @@ public slots:
 
 private slots:
 	void serverMenuClicked(bool checked);
+	void onImportSSurlFromClipClicked();
 	void onCurrentItemChanged(const ConnectionItem* newItem);
 
 private:
-	QMenu systrayMenu;
+	QMenu systrayMenu_;
 	QMenu serverList_;
 	QAction* actStopProxy_ = nullptr;
-    QAction *minimiseRestoreAction;
-    QSystemTrayIcon systray;
-    MainWindow *window;
+	QAction *minimiseRestoreAction_;
+	QSystemTrayIcon systray_;
+	MainWindow *window_;
 };
 
 class ServerAction : public QAction {

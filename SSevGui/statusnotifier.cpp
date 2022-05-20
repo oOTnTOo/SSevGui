@@ -2,6 +2,9 @@
 #include "MainWindow.h"
 #include <QApplication>
 #include "BusView.h"
+#include <QClipboard>
+#include "Tools.h"
+
 #ifdef Q_OS_LINUX
 #include <QDBusMessage>
 #include <QDBusConnection>
@@ -10,34 +13,36 @@
 
 StatusNotifier::StatusNotifier(MainWindow *w, bool startHiden, QObject *parent) :
     QObject(parent),
-    window(w)
+	window_(w)
 {
-	systray.setIcon(QIcon(":/icon/Resource/shadowsocks-qt5.png"));
-	systray.setToolTip(QString("SSevGui"));
-    connect(&systray, &QSystemTrayIcon::activated, [this](QSystemTrayIcon::ActivationReason r) {
-        if (r != QSystemTrayIcon::Context) {
-            this->activate();
-        }
-    });
-    minimiseRestoreAction = new QAction(startHiden ? tr("Restore") : tr("Minimise"), this);
-    connect(minimiseRestoreAction, &QAction::triggered, this, &StatusNotifier::activate);
-    systrayMenu.addAction(minimiseRestoreAction);
-	systrayMenu.addSeparator();
+	systray_.setIcon(QIcon(":/icon/Resource/shadowsocks-qt5.png"));
+	systray_.setToolTip(QString("SSevGui"));
+	connect(&systray_, &QSystemTrayIcon::activated, [this](QSystemTrayIcon::ActivationReason r) {
+		if (r != QSystemTrayIcon::Context) {
+			this->activate();
+		}
+	});
+	minimiseRestoreAction_ = new QAction(startHiden ? tr("Restore") : tr("Minimise"), this);
+	connect(minimiseRestoreAction_, &QAction::triggered, this, &StatusNotifier::activate);
+	systrayMenu_.addAction(minimiseRestoreAction_);
+	systrayMenu_.addSeparator();
 
-	actStopProxy_ = systrayMenu.addAction(tr("Stop proxy"),BusView::inst(),&BusView::stopProxy);
+	actStopProxy_ = systrayMenu_.addAction(tr("Stop proxy"),BusView::inst(),&BusView::stopProxy);
 	connect(BusView::inst(),&BusView::sig_currentItemChanged,this,&StatusNotifier::onCurrentItemChanged);
 	actStopProxy_->setEnabled(false);
 
 	serverList_.setTitle(tr("Server"));
-	systrayMenu.addMenu(&serverList_);
+	serverList_.addAction(tr("Import SS url from clipboard"), this, &StatusNotifier::onImportSSurlFromClipClicked);
+	serverList_.addSeparator();
+	systrayMenu_.addMenu(&serverList_);
 	connect(BusView::inst(),&BusView::sig_modelItemChanged,this,&StatusNotifier::createServerList);
 
-	systrayMenu.addMenu(w->subscriptionMenu());
+	systrayMenu_.addMenu(w->subscriptionMenu());
 
-	systrayMenu.addSeparator();
-	systrayMenu.addAction(tr("Quit"), qApp, &QApplication::quit);
-    systray.setContextMenu(&systrayMenu);
-	systray.show();
+	systrayMenu_.addSeparator();
+	systrayMenu_.addAction(tr("Quit"), qApp, &QApplication::quit);
+	systray_.setContextMenu(&systrayMenu_);
+	systray_.show();
 }
 
 void StatusNotifier::createServerList() {
@@ -68,12 +73,12 @@ void StatusNotifier::createServerList() {
 
 void StatusNotifier::activate()
 {
-    if (!window->isVisible() || window->isMinimized()) {
-        window->showNormal();
-        window->activateWindow();
-        window->raise();
+	if (!window_->isVisible() || window_->isMinimized()) {
+		window_->showNormal();
+		window_->activateWindow();
+		window_->raise();
     } else {
-        window->hide();
+		window_->hide();
     }
 }
 
@@ -93,7 +98,7 @@ void StatusNotifier::showNotification(const QString &msg)
 
 void StatusNotifier::onWindowVisibleChanged(bool visible)
 {
-	minimiseRestoreAction->setText(visible ? tr("Minimise") : tr("Restore"));
+	minimiseRestoreAction_->setText(visible ? tr("Minimise") : tr("Restore"));
 }
 
 void StatusNotifier::serverMenuClicked(bool checked) {
@@ -105,6 +110,26 @@ void StatusNotifier::serverMenuClicked(bool checked) {
 		BusView::inst()->startProxy(ci);
 	} else {
 		BusView::inst()->stopProxy();
+	}
+}
+
+void StatusNotifier::onImportSSurlFromClipClicked() {
+	QStringList serUrls = qApp->clipboard()->text().split("\n");
+	QList<SQProfile> pfiles;
+	for (QString& sUrl : serUrls) {
+		sUrl = sUrl.trimmed();
+
+		if (!sUrl.startsWith("ss://",Qt::CaseInsensitive))
+			continue;
+
+		SQProfile pro;
+		if(Tools::parseLegacyURL(sUrl, pro)) {
+			pfiles << sUrl;
+			continue;
+		}
+
+		Tools::parseSIP002URL(sUrl, pro);
+		// TODO
 	}
 }
 
